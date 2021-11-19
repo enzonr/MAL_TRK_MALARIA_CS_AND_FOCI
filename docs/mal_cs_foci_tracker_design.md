@@ -184,73 +184,52 @@ In the enrollment stage, each case is registered and assigned a System case ID a
 _This stage is divided into three sections. It is mandatory to enter a date of diagnosis and a case detection setting. Both this elements are heavily used for indicator calculations_
 
 | Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| N/A | Date of diagnosis | hYyB7FUS5eR | DATE |
- | YES |
-| Case Detection | Detection setting | fazCI2ygYkq | TEXT | PASSIVEREACTIVEPROACTIVE | YES |
+|---|---|---|---|---|---|
+| N/A | Date of diagnosis | hYyB7FUS5eR | DATE |  | YES |
+| Case Detection | Detection setting | fazCI2ygYkq | TEXT | PASSIVE REACTIVE PROACTIVE | YES |
 
 _In the Malaria diagnosis section, all data relevant to the diagnosis process are recorded. There are programme rules included to facilitate data entry and hiding options when not relevant._
 
 | Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| Malaria diagnosis | Reason for conducting case investigation | zFiMMpGyBgr | TEXT |
- Only available if &quot;Proactive is selected in detection setting.
- DEVELOPMENT\_OF\_ACTIVITIESPOPULATION\_MOVEMENTREFUGEE\_CRISISCLIMATIC\_TRIGGERSOTHER | NO |
-| Malaria diagnosis | Conducting case investigation (other) | J4fIuC5ZLsU | TEXT |
- | NO |
-| Malaria diagnosis | Temperature | J7hdx5FCJvG | NUMBER |
- | NO |
-| Malaria diagnosis | Weight | JINgGHgqzSN | INTEGER\_POSITIVE |
- | NO |
+|---|---|---|---|---|---|
+| Malaria diagnosis | Reason for conducting case investigation | zFiMMpGyBgr | TEXT | Only available if “Proactive is selected in detection setting. DEVELOPMENT_OF_ACTIVITIES POPULATION_MOVEMENT REFUGEE_CRISIS CLIMATIC_TRIGGERS OTHER | NO |
+| Malaria diagnosis | Conducting case investigation (other) | J4fIuC5ZLsU | TEXT |  | NO |
+| Malaria diagnosis | Temperature | J7hdx5FCJvG | NUMBER |  | NO |
+| Malaria diagnosis | Weight | JINgGHgqzSN | INTEGER_POSITIVE |  | NO |
 | Malaria diagnosis | Symptom onset date | YEpmDm1I01R | DATE | Calculated by program rule if days with symptoms are added | NO |
-| Malaria diagnosis | Symptom onset date is estimated | S6uZEpdNh8o | YES\_ONLY |
- | NO |
-| Malaria diagnosis | Number of days with symptoms | kJiPLxGq2yI | INTEGER\_ZERO\_OR\_POSITIVE | Calculated by program rule if date is added | NO |
-| Malaria diagnosis | Malaria Diagnosis confirmed by | qdjVZojEK8S | TEXT | RDTMICROSCOPYOTHER | NO |
-| Malaria diagnosis | Diagnosis method (Other) | FxYWTORW4mT | TEXT | Only visible i &quot;Other&quot; is selected | NO |
-| Malaria diagnosis | Malaria plasmodium species identified | vGxpKVMkmaW | TEXT | Only visible if a diagnosis method is selected
-
- PFPKPMPOPVMIXOTHER | NO |
-| Malaria diagnosis | Malaria positive species (other) | voV7EhjhyJ3 | TEXT |
- | NO |
-| Malaria diagnosis | Malaria parasite density | Wwu7UAt7bZW | INTEGER\_ZERO\_OR\_POSITIVE | Only visible if &quot;Microscopy&quot; is selected | NO |
-| Malaria diagnosis | presence of gametocytes | LCxi1dciA1C | BOOLEAN | Only visible if &quot;Microscopy&quot; is selected | NO |
-| Malaria diagnosis | MAL-CS Severity of disease | SzVk2KvkSSd | TEXT | SIMPLESEVERE | NO |
-| Malaria diagnosis | Malaria Medication | nTMP8Aj1rYA | TEXT | ALALPLUSPQAS-SPASPLUSAQASPLUSMQASPLUSMQPLUSPQASPLUSSPASPLUSSPPLUSPQCHLOROQUINEDHA-PPQDHA-PPQPLUSPQRADICAL\_CUREOTHER | NO |
-| Malaria diagnosis | Admission Status | MKMyvXshCdB | TEXT | ADMITTEDREFERREDOPD | NO |
-| Malaria diagnosis | Reason for referral | Zlro25GTcNK | TEXT | Only visible if case admission status is &quot;Referred&quot;
-
-
- FURTHER\_MANAGEMENTOUTOFSTOCK | NO |
+| Malaria diagnosis | Symptom onset date is estimated | S6uZEpdNh8o | YES_ONLY |  | NO |
+| Malaria diagnosis | Number of days with symptoms | kJiPLxGq2yI | INTEGER_ZERO_OR_POSITIVE | Calculated by program rule if date is added | NO |
+| Malaria diagnosis | Malaria Diagnosis confirmed by | qdjVZojEK8S | TEXT | RDT MICROSCOPY OTHER | NO |
+| Malaria diagnosis | Diagnosis method (Other) | FxYWTORW4mT | TEXT | Only visible i “Other” is selected | NO |
+| Malaria diagnosis | Malaria plasmodium species identified | vGxpKVMkmaW | TEXT | Only visible if a diagnosis method is selectedPF PK PM PO PV MIX OTHER | NO |
+| Malaria diagnosis | Malaria positive species (other) | voV7EhjhyJ3 | TEXT |  | NO |
+| Malaria diagnosis | Malaria parasite density | Wwu7UAt7bZW | INTEGER_ZERO_OR_POSITIVE | Only visible if “Microscopy” is selected | NO |
+| Malaria diagnosis | presence of gametocytes | LCxi1dciA1C | BOOLEAN | Only visible if “Microscopy” is selected | NO |
+| Malaria diagnosis | MAL-CS Severity of disease | SzVk2KvkSSd | TEXT | SIMPLE SEVERE | NO |
+| Malaria diagnosis | Malaria Medication | nTMP8Aj1rYA | TEXT | AL ALPLUSPQ AS-SP ASPLUSAQ ASPLUSMQ ASPLUSMQPLUSPQ ASPLUSSP ASPLUSSPPLUSPQ CHLOROQUINE DHA-PPQ DHA-PPQPLUSPQ RADICAL_CURE OTHER | NO |
+| Malaria diagnosis | Admission Status | MKMyvXshCdB | TEXT | ADMITTED REFERRED OPD | NO |
+| Malaria diagnosis | Reason for referral | Zlro25GTcNK | TEXT | Only visible if case admission status is “Referred”FURTHER_MANAGEMENT OUTOFSTOCK | NO |
 
 _The malaria History section deals with data related to previous Malaria infections, including the previous treatment and species identified._
 
 | Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| History of Malaria | Blood transfusion within past 3 months | yO0ZIegEsDk | BOOLEAN |
- | NO |
-| History of Malaria | history | cpXwLgQTLeO | BOOLEAN |
- | NO |
+|---|---|---|---|---|---|
+| History of Malaria | Blood transfusion within past 3 months | yO0ZIegEsDk | BOOLEAN |  | NO |
+| History of Malaria | history | cpXwLgQTLeO | BOOLEAN |  | NO |
 | History of Malaria | Date of previous diagnosis | Urz28endlF6 | DATE | Only available if there is a history of confirmed malaria | NO |
-| History of Malaria | plasmodium species (previous) | xTeHON9Jisk | TEXT | Only available if there is a history of confirmed malaria
-
- PFPKPMPOPVMIXOTHER | NO |
-| History of Malaria | Malaria Medication (previous) | JndDE3YbCEB | TEXT | Only available if there is a history of confirmed malaria
-
- ALALPLUSPQAS-SPASPLUSAQASPLUSMQASPLUSMQPLUSPQASPLUSSPASPLUSSPPLUSPQCHLOROQUINEDHA-PPQDHA-PPQPLUSPQRADICAL\_CUREOTHER | NO |
+| History of Malaria | plasmodium species (previous) | xTeHON9Jisk | TEXT | Only available if there is a history of confirmed malariaPF PK PM PO PV MIX OTHER | NO |
+| History of Malaria | Malaria Medication (previous) | JndDE3YbCEB | TEXT | Only available if there is a history of confirmed malariaAL ALPLUSPQ AS-SP ASPLUSAQ ASPLUSMQ ASPLUSMQPLUSPQ ASPLUSSP ASPLUSSPPLUSPQ CHLOROQUINE DHA-PPQ DHA-PPQPLUSPQ RADICAL_CURE OTHER | NO |
 
 The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule with the expression &quot;true&quot; meaning it&#39;s always hidden. Both data elements are automatically populated. The Notification date comes from the current date when the report is being filled. And the diagnosis date comes from the &quot;date of diagnosis&quot; feature in the event. The latter one is there to allow for that value to be used in indicators in other stages.
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| Hidden section for indicator purposes (Diagnosis) | Notification date | fPbtS7glDT2 | DATE |
- | NO |
-| Hidden section for indicator purposes (Diagnosis) | Diagnosis date | ObiXORrILyV | DATE |
- | NO |
+|---|---|---|---|---|---|
+| Hidden section for indicator purposes (Diagnosis) | Notification date | fPbtS7glDT2 | DATE |  | NO |
+| Hidden section for indicator purposes (Diagnosis) | Diagnosis date | ObiXORrILyV | DATE |  | NO |
 
 ### 4.1.3 Case investigation and classification
 
-_This is where the magic happens. The case notification, investigation and response is the stage that is recorded as close as possible to the cases. If it is not done at a facility or telephonically, the investigation will most likely be conducted in a mobile device. It includes a feature point where investigators can record the coordinates of the case. These coordinates are then used to populate the geographical dashboards.
+_This is where the magic happens. The case notification, investigation and response is the stage that is recorded as close as possible to the cases. If it is not done at a facility or telephonically, the investigation will most likely be conducted in a mobile device. It includes a feature point where investigators can record the coordinates of the case. These coordinates are then used to populate the geographical dashboards._
 
  The first section deals with the location of the case_
 
