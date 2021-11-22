@@ -250,109 +250,78 @@ _This is where the magic happens. The case notification, investigation and respo
 The travel details section refers to recent travel by the case, both within and outside the country. Basic decision support programme rules are included.
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| Travel Details | Recent travel within the country | hiymQVgVG2v | TEXT | YESNO | NO |
-| Travel Details | Travel within country (30 days symptoms) | qpp5fp1RVaX | TEXT | Only available if case has traveled recently
-
- YESNO | NO |
+|---|---|---|---|---|---|
+| Travel Details | Recent travel within the country | hiymQVgVG2v | TEXT | YES NO | NO |
+| Travel Details | Travel within country (30 days symptoms) | qpp5fp1RVaX | TEXT | Only available if case has traveled recently YES NO | NO |
 | Travel Details | Travel inside country Region/District | SI1D9IfXiI4 | TEXT | Only available if case has traveled recently | NO |
 | Travel Details | Travel inside country town/village name | eYOHoeSizJk | TEXT | Only available if case has traveled recently | NO |
 | Travel Details | Travel inside country last night | BRNQ61bbt28 | DATE | Only available if case has traveled recently | NO |
 | Travel Details | Travel inside country First Night | Oc9Y7jvdU2g | DATE | Only available if case has traveled recently | NO |
-| Travel Details | Travel outside country | OhU3RfPlQGR | TEXT | YESNO | NO |
-| Travel Details | Travel outside country last month | B1zbtdPXMRk | TEXT | Only available if case has traveled recently
- YESNO | NO |
-| Travel Details | Country traveled to | f9xYwUwrHq9 | TEXT | Only available if case has traveled recently
-
- Full country list | NO |
+| Travel Details | Travel outside country | OhU3RfPlQGR | TEXT | YES NO | NO |
+| Travel Details | Travel outside country last month | B1zbtdPXMRk | TEXT | Only available if case has traveled recentlyYES NO | NO |
+| Travel Details | Country traveled to | f9xYwUwrHq9 | TEXT | Only available if case has traveled recentlyFull country list | NO |
 | Travel Details | Travel outside country Region/District | kwv9fXr7gbj | TEXT | Only available if case has traveled recently | NO |
 | Travel Details | Travel outside country town/village name | JZw2d0yzmHB | TEXT | Only available if case has traveled recently | NO |
 | Travel Details | Travel outside country last night | mw2Rso4RHEF | DATE | Only available if case has traveled recently | NO |
 | Travel Details | Travel outside country first night | JBBAwCahDQ3 | DATE | Only available if case has traveled recently | NO |
-| Travel Details | Travel history narrative | i7JwJXVEl2C | TEXT |
- | NO |
-| Travel Details | Preliminary case classification | bcGuRgKDZei | TEXT | LOCALIMPORTEDINTRODUCEDRECRUDESCENTINDUCED | NO |
-| Travel Details | Classification Narrative | pIcW9I0z5LL | TEXT |
- | NO |
+| Travel Details | Travel history narrative | i7JwJXVEl2C | TEXT |  | NO |
+| Travel Details | Preliminary case classification | bcGuRgKDZei | TEXT | LOCAL IMPORTED INTRODUCED RECRUDESCENT INDUCED | NO |
+| Travel Details | Classification Narrative | pIcW9I0z5LL | TEXT |  | NO |
 
 The index case household investigation implies the investigation of the physical location and inhabitants of the case&#39;s dwelling. Basic validation rules are triggered if numbers are not correct (for example, more household members own a net than there are household members)
 
-| Index case household investigation and response | Name of head of household | SlqoeFUJvUV | TEXT |
- | NO |
-| --- | --- | --- | --- | --- | --- |
-| Index case household investigation and response | Number of household members | lezQpdvvGjY | INTEGER ZERO OR POSITIVE |
- | NO |
-| Index case household investigation and response | Household members tested for malaria | y57kkdyw35d | INTEGER ZERO OR POSITIVE |
- | NO |
-| Index case household investigation and response | Household members malaria positive | qxWAgIAfZAh | INTEGER ZERO OR POSITIVE |
- | NO |
-| Index case household investigation and response | Sleeping places | QtZBHQORAvK | INTEGER ZERO OR POSITIVE |
- | NO |
-| Index case household investigation and response | Household members own net | uPNwmZl8Clb | INTEGER ZERO OR POSITIVE |
- | NO |
-| Index case household investigation and response | Residents in household who slept under a net the previous night | KA6RY4BB41F | INTEGER |
- | YES |
-| Index case household investigation and response | Household sprayed in the past 12 months | AeVEKN0zwJJ | BOOLEAN |
- | YES |
-| Index case household investigation and response | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | YES_ONLY |
- | NO |
-| Index case household investigation and response | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | YES_ONLY |
- | NO |
-| Index case household investigation and response | Vector Control Intervention - Larval Source Management | wwIvEJUmxx8 | YES_ONLY |
- | NO |
+| Index case household investigation and response | Name of head of household | SlqoeFUJvUV | TEXT |  | NO |
+|---|---|---|---|---|---|
+| Index case household investigation and response | Number of household members | lezQpdvvGjY | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Index case household investigation and response | Household members tested for malaria | y57kkdyw35d | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Index case household investigation and response | Household members malaria positive | qxWAgIAfZAh | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Index case household investigation and response | Sleeping places | QtZBHQORAvK | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Index case household investigation and response | Household members own net | uPNwmZl8Clb | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Index case household investigation and response | Residents in household who slept under a net the previous night | KA6RY4BB41F | INTEGER |  | YES |
+| Index case household investigation and response | Household sprayed in the past 12 months | AeVEKN0zwJJ | BOOLEAN |  | YES |
+| Index case household investigation and response | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | YES_ONLY |  | NO |
+| Index case household investigation and response | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | YES_ONLY |  | NO |
+| Index case household investigation and response | Vector Control Intervention - Larval Source Management | wwIvEJUmxx8 | YES_ONLY |  | NO |
 
 _The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule and both data elements are automatically populated. The two different data elements are automatically filled with data from the diagnosis stage using programme rules._
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | Hidden section for indicator purposes (Investigation) | Detection setting | fazCI2ygYkq | TEXT | PASSIVE REACTIVE PROACTIVE | NO |
-| Hidden section for indicator purposes (Investigation) | Diagnosis date | ObiXORrILyV | DATE |
- | NO |
+| Hidden section for indicator purposes (Investigation) | Diagnosis date | ObiXORrILyV | DATE |  | NO |
 
 ### 4.1.4 Neighbouring household investigation
 
 _This stage records the data for the investigations done in the households in the vicinity of the case. Basic validation rules are triggered if numbers are not correct (for example, more household members own a net than there are household members)_
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| Nearby household investigation | Investigation date | VgsOuy9mXyZ | DATE |
- | YES |
-| Nearby household investigation | Name of head of household | SlqoeFUJvUV | TEXT |
- | NO |
-| Nearby household investigation | Number of household members | lezQpdvvGjY | INTEGER ZERO OR POSITIVE |
- | NO |
-| Nearby household investigation | Household members tested for malaria | y57kkdyw35d | INTEGER ZERO OR POSITIVE |
- | NO |
-| Nearby household investigation | Household members malaria positive | qxWAgIAfZAh | INTEGER ZERO OR POSITIVE |
- | NO |
-| Nearby household investigation | Sleeping places | QtZBHQORAvK | INTEGER ZERO OR POSITIVE |
- | NO |
-| Nearby household investigation | Household members own net | uPNwmZl8Clb | INTEGER ZERO OR POSITIVE |
- | NO |
-| Nearby household investigation | Residents in household who slept under a net the previous night | KA6RY4BB41F | INTEGER |
- | NO |
-| Nearby household investigation | Household sprayed in the past 12 months | AeVEKN0zwJJ | BOOLEAN |
- | NO |
-| Nearby household investigation | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | yes\_ONLY |
- | NO |
-| Nearby household investigation | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | yes\_ONLY |
- | NO |
+|---|---|---|---|---|---|
+| Nearby household investigation | Investigation date | VgsOuy9mXyZ | DATE |  | YES |
+| Nearby household investigation | Name of head of household | SlqoeFUJvUV | TEXT |  | NO |
+| Nearby household investigation | Number of household members | lezQpdvvGjY | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Nearby household investigation | Household members tested for malaria | y57kkdyw35d | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Nearby household investigation | Household members malaria positive | qxWAgIAfZAh | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Nearby household investigation | Sleeping places | QtZBHQORAvK | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Nearby household investigation | Household members own net | uPNwmZl8Clb | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Nearby household investigation | Residents in household who slept under a net the previous night | KA6RY4BB41F | INTEGER |  | NO |
+| Nearby household investigation | Household sprayed in the past 12 months | AeVEKN0zwJJ | BOOLEAN |  | NO |
+| Nearby household investigation | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | yes_ONLY |  | NO |
+| Nearby household investigation | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | yes_ONLY |  | NO |
 
 ### 4.1.5 Case outcome
 
 _The case outcome records the end of the final case classification and the outcome of the illness with the following data elements:_
 
-| Case outcome | Report date | eHvTba5ijAh | DATE |
- | **TRUE** |
-| --- | --- | --- | --- | --- | --- |
+| Case outcome | Report date | eHvTba5ijAh | DATE |  | TRUE |
+|---|---|---|---|---|:---:|
 | Case outcome | Malaria Final case classification | y3CG06h1Clh | TEXT | INDIGENOUS IMPORTED INTRODUCED RECRUDESCENT INDUCED | FALSE |
-| Case outcome | Outcome of illness | zXNfOKXRBA9 | TEXT | CURED DIED ABSCONDED | **TRUE** |
+| Case outcome | Outcome of illness | zXNfOKXRBA9 | TEXT | CURED DIED ABSCONDED | TRUE |
 
 It also includes a hidden section with the data element &quot;Admission status&quot;, which is assigned automatically from the same data element present in the &quot;Diagnostic and Treatment&quot; Stage.
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Hidden Section for indicator purposes (Outcome) | Admission Status | MKMyvXshCdB | TEXT | ADMITTEDREFERREDOPD | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Hidden Section for indicator purposes (Outcome) | Admission Status | MKMyvXshCdB | TEXT | ADMITTED REFERRED OPD | NO |
 
 ### 4.1.6 Routine focus investigation and response
 
@@ -360,47 +329,36 @@ This stage is completed following every case outcome. it has five sections and i
 In the locality section the user selects if the locality was urban or rural.
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| feature | Date of focus investigation | KwrBvn1EJT3 | DATE |
- | YES |
-| Locality | Locality | r4GBctr3Xdh | TEXT | URBANRURAL | NO |
+|---|---|---|---|---|---|
+| feature | Date of focus investigation | KwrBvn1EJT3 | DATE |  | YES |
+| Locality | Locality | r4GBctr3Xdh | TEXT | URBAN RURAL | NO |
 
 In the Types of population section, users select the type or types of population that exist in the case&#39;s foci. More than one can be selected
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Type(s) of populations | MAL- Migrant | BK2d3ktuJWa | YES\_ONLY |
- | NO |
-| Type(s) of populations | MAL- Refugee | HUzRTYRFcYn | YES\_ONLY |
- | NO |
-| Type(s) of populations | MAL- Resident | Cd5AUkJT1mE | YES\_ONLY |
- | NO |
-| Type(s) of populations | MAL- Temporary worker | VJ7qLlRgm7e | YES\_ONLY |
- | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Type(s) of populations | MAL- Migrant | BK2d3ktuJWa | YES_ONLY |  | NO |
+| Type(s) of populations | MAL- Refugee | HUzRTYRFcYn | YES_ONLY |  | NO |
+| Type(s) of populations | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |  | NO |
+| Type(s) of populations | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |  | NO |
 
 The response section gathers the date of response.
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Response | Date of response | G7f2D1vl3fD | DATE |
- | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Response | Date of response | G7f2D1vl3fD | DATE |  | NO |
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Vector control interventions | MAL- Follow-up Vector Control Intervention - LLIN Distribution | JhpYDsTUfi2 | YES\_ONLY |
- | NO |
-| Vector control interventions | Bednet distributed | f623C5LloqV | INTEGER ZERO OR POSITIVE |
- | NO |
-| Vector control interventions | MAL- Follow-up Vector Control Intervention - Indoor Residual Spraying | yhX7ljWZV9q | YES\_ONLY |
- | NO |
-| Vector control interventions | Household sprayed | veWOag0p9n2 | INTEGER\_ZERO\_OR\_POSITIVE |
- | NO |
-| Vector control interventions | Environmental | UbeFiBkPcUo | YES\_ONLY |
- | NO |
-| Vector control interventions | Follow-up vector control details | zgnTlAH4ZOk | TEXT |
- | NO |
-| Vector control interventions | Follow-up vector control details | zgnTlAH4ZOk | TEXT |
- | NO |
+And finally, the vector control intervention section records intervations undertaken in this focus. Next time there is ain investigation, these interventions will appear in that section.
+
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Vector control interventions | MAL- Follow-up Vector Control Intervention - LLIN Distribution | JhpYDsTUfi2 | YES_ONLY |  | NO |
+| Vector control interventions | Bednet distributed | f623C5LloqV | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Vector control interventions | MAL- Follow-up Vector Control Intervention - Indoor Residual Spraying | yhX7ljWZV9q | YES_ONLY |  | NO |
+| Vector control interventions | Household sprayed | veWOag0p9n2 | INTEGER_ZERO_OR_POSITIVE |  | NO |
+| Vector control interventions | Environmental | UbeFiBkPcUo | YES_ONLY |  | NO |
+| Vector control interventions | Follow-up vector control details | zgnTlAH4ZOk | TEXT |  | NO |
+| Vector control interventions | Follow-up vector control details | zgnTlAH4ZOk | TEXT |  | NO |
 
 ## 4.2 MAL-FOCI
 
