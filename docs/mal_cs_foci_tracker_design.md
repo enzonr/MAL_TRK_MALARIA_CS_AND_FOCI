@@ -8,13 +8,17 @@ The data elements included follow WHO-recommendations based on WHO global standa
 
 ## System design overview
 
-The metadata package contains two tracker programs that support the identification, investigation, classification of malaria cases and malaria foci as part of national malaria surveillance strategies. These tracker programs are intended to be packaged and deployed together to serve complementary, related workflows for case and
+The metadata package contains two tracker programs that support the notification, investigation and classification of malaria cases and malaria foci as part of national malaria surveillance strategies. hese tracker programs are intended to be packaged and deployed together to serve complementary, related workflows for case notification and case and foci investigation systems.  The figure below illustrates elimination surveillance with the examples of case notification within 1 day, case investigation within 3 days and focus investigation within 7 days, a “1–3–7” approach adopted from the guidance in China.
 
-**MAL CS - Malaria Case Notification, Investigation &amp; Response:** _This is a longitudinal case-based surveillance program that supports a typical workflow for notifying confirmed malaria cases and following them up through case investigation and case classification.
+
+
+
+**MAL CS - Malaria Case Notification, Investigation &amp; Response:** This is a longitudinal case-based surveillance program that supports a typical workflow for notifying confirmed malaria cases and following them up through case investigation  and case classification and focus investigation. 
+
 
 It allows for cases to be linked through relationships- case to cases (detected reactively) and; a case to a foci registered in the related tracker program &quot;Foci Investigation&quot;. The &quot;Foci Investigation&quot; programme provides details on the actions taken around the index case that triggered a case investigation and the appropriate response measures that were carried out within the focus.
 
- MAL Malaria Foci Investigation Program (MAL-FOCI) is a registry of all foci and their classification status, as well as response interventions taken to manage them and potential for reclassification should the need arise._
+**MAL Malaria Foci Investigation Program (MAL-FOCI)** is a registry of all foci and their classification status, as well as response interventions taken to manage them and potential for reclassification should the need arise._
 
 
  There are also seven dashboards which are populated with indicators from the respective programs. The programmes are made to work in tandem and fulfill different aspects of the malaria elimination and burden reduction process._
