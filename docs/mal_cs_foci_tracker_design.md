@@ -449,353 +449,260 @@ The classification section lets the health worker register the focus status and 
 
 ## Validation rules for malaria Case Surveillance
 
-| _ **name** _ | _ **id** _ | _ **description** _ | _ **condition** _ |
-| --- | --- | --- | --- |
-| _Assign event date to Diagnosis date Data Element - Diagnosis and treatment_ | _DkNSQkPFdRe_ | _Assigns the event date from the stage feature to the to diagnosis date Data Element - Diagnosis and treatment - this is so that it can be moved to other stages._ | _TRUE_ |
-| _Assign value from admission status if admission has value in diagnosis stage_ | _PDZeegogWhP_ | _If admission status has value in diagnosis stage, add there, this allows for calculation of inpatient deaths_ | _d2:hasValue( &#39;Admitted\_previous&#39; )_ |
-| _Assign value from detection setting if detection setting has value_ | _kGe41u6HxR4_ | _If Detection setting has a value in the diagnosis stage,add it here_ | _d2:hasValue( &#39;DetectionSettingNewestDiagnosis&#39; )_ |
-| _Assign value from Species identified if species has value in diagnosis stage_ | _LXpKv2W5fi2_ | _If species has value in diagnosis stage, add in investigation, this allows for calculation of inpatient deaths_ | _d2:hasValue( &#39;MalariaSpecies&#39; )_ |
-| _Assign value of date of completion to date of notification_ | _Co9AGieq1lZ_ | _If there is no value in the notification date, add the date of completion_ | _!d2:hasValue( &#39;notification\_date&#39; )_ |
-| _Assign value to diagnosis date from previous event - Case Investigation_ | _o1I4C1t0m6x_ | _If the case investigation stage has a date of diagnosis, add it to the DE in this stage (Hidden section)_ | _d2:hasValue(#{Diagnosis\_date\_previous} )_ |
-| _Assign value to diagnosis date from previous event - Focus routine investigation_ | _JizPUKOPn9N_ | _Assign value to diagnosis date from previous event - Focus routine investigation (Hidden Section)_ | _d2:hasValue(#{Diagnosis\_date\_previous} )_ |
-| _Case classified as : display as indicator_ | _nmNzVmTYZOb_ | _Display the results of the malaria case classification in the indicator widget_ | _d2:hasValue(&#39;CaseClassifiedAs&#39;)_ |
-| _Date of birth : assign age in years_ | _woDbRbosGCn_ | _Assign the age in years based on the difference between the selected date of birth and the enrollment date into the program_ | _d2:hasValue( A{dateofbirth} )_ |
-| _Detection setting: proactive not selected_ | _vvxaCLtSXqI_ | _Hide Reason for conducting foci investigation if detection setting != &quot;Proactive (ACD)&quot;_ | _#{DetectionSetting} == &#39;&#39; || #{DetectionSetting} == &#39;PASSIVE&#39; || #{DetectionSetting} == &#39;REACTIVE&#39;_ |
-| _Hide Detection setting if no value in diagnosis_ | _gUJMdn2k9q0_ | _If Detection setting does not have a value in the diagnosis stage, hide it here._ | _d2:hasValue( &#39;DetectionSettingNewestDiagnosis&#39; ) == false_ |
-| _Hide Section for indicator purposes in case Investigation and classification_ | _nXiXXY2Syhc_ | _Hide Section for indicator purposes in case Investigation and classification_ | _TRUE_ |
-| _Hide section for indicator purposes in case outcome stage_ | _bt2DABwwFbZ_ | _we need to transfer value to a DE in this section from a different section_ | _TRUE_ |
-| _Hide section for indicator purposes in Diagnosis stage_ | _TgZZ29X7wDS_ | _Hide Section for indicator purposes in case Investigation and classification_ | _TRUE_ |
-| _IF Microscopy is selected then HIDE Mixed_ | _a81cE9cycNk_ | _IF Microscopy is selected then HIDE Mixed_ | _#{DIAGNOSIS} == &#39;MICROSCOPY&#39;_ |
-| _If RDT selected then HIDE p-Ovale and P. Malariae_ | _fdKz1gGZe4w_ | | _#{DIAGNOSIS} == &#39;RDT&#39;_ |
-| _Indoor residual spraying : not conducted_ | _SFNzLxobTyL_ | _Hide the number of houses sprayed if no houses are sprayed_ | _#{IndoorResidualSpraying}!= true_ |
-| _LLIN distribution : not conducted_ | _cQRB9WLtnRj_ | _Hide the number of nets distributed if no nets are distributed_ | _#{LLINdistribution} != true_ |
-| _Location of investigation != Household then hide household_ | _tK7B2BFBdmI_ | _Location of investigation != Household then hide household_ | _#{MalariaLocation} != &#39;HOUSEHOLD&#39;_ |
-| _Malaria history : no history of malaria_ | _tMawDoGpOlz_ | _Hide related fields if the case has no history of malaria_ | _!#{malariahistory}_ |
-| _Malaria species type != Other_ | _eyawANeGsf4_ | _Hide the other species type field if the malaria species type is blank or != Other_ | _#{MalariaSpecies} == &#39;&#39; || #{MalariaSpecies} == &#39;PF&#39; || #{MalariaSpecies} == &#39;PV&#39; || #{MalariaSpecies} == &#39;MIX&#39; || #{MalariaSpecies} == &#39;PO&#39; || #{MalariaSpecies} == &#39;PM&#39;_ |
-| _Malaria species type : display as indicator_ | _P2WqApkndXb_ | _Display the results of the malaria species type as identified by the malaria test in the indicator widget_ | _d2:hasValue(&#39;MalariaSpecies&#39;)_ |
-| _Reason for conduction case investigation != Other_ | _XPkmjVblOJU_ | _Hide the field for other reason for conducting case investigation if other is not selected_ | _#{ReasonCaseInvestigation} == &#39;&#39; || #{ReasonCaseInvestigation} == &#39;DEVELOPMENT\_OF\_ACTIVITIES&#39; || #{ReasonCaseInvestigation} == &#39;POPULATION\_MOVEMENT&#39; || #{ReasonCaseInvestigation} == &#39;REFUGEE\_CRISIS&#39; || #{ReasonCaseInvestigation} == &#39;CLIMATIC\_TRIGGERS&#39;_ |
-| _Referred : false_ | _IkvodVu4vZ3_ | _Hide reason for referral if a referral was not made_ | _#{Referred} != &#39;REFERRED&#39;_ |
-| _Residents positive for malaria \&gt; Residents tested for malaria_ | _JVzsxIkGzAK_ | _Residents positive for malaria \&gt; Residents tested for malaria_ | _(d2:hasValue(&#39;HHMalariaTest&#39;) &amp;&amp; d2:hasValue(&#39;HHMalariaPositive&#39;)) &amp;&amp; (#{HHMalariaPositive} \&gt; #{HHMalariaTest})_ |
-| _Residents tested for malaria \&gt; Residents in household_ | _nMmnj4Nb2vc_ | _Residents tested for malaria \&gt; Residents in household_ | _(d2:hasValue(&#39;HHMalariaTest&#39;) &amp;&amp; d2:hasValue(&#39;HHResidents&#39;)) &amp;&amp; (#{HHMalariaTest} \&gt; #{HHResidents})_ |
-| _Residents who own a bed net \&gt; Residents in household_ | _mfRXzxXthu2_ | _Show warning if the Residents who slept under net the previous night \&gt; Residents in household_ | _(d2:hasValue(&#39;HHownbednet&#39;) &amp;&amp; d2:hasValue(&#39;HHResidents&#39;)) &amp;&amp; (#{HHownbednet} \&gt; #{HHResidents})_ |
-| _Residents who slept under net the previous night \&gt; Residents in household_ | _lcpfnocmJ8z_ | _Show warning if the Residents who slept under net the previous night \&gt; Residents in household_ | _(d2:hasValue(&#39;HHSleptUnderNet&#39;) &amp;&amp; d2:hasValue(&#39;HHResidents&#39;)) &amp;&amp; (#{HHSleptUnderNet} \&gt; #{HHResidents})_ |
-| _Sex : female, Age \&lt;= 13_ | _hhsVY8oobaz_ | _Hide pregnancy status and pregnancy months when the person is female and \&lt;= 13_ | _A{Sex} == &#39;FEMALE&#39; &amp;&amp; (d2:yearsBetween(A{dateofbirth}, V{current\_date}) \&lt;= 13)_ |
-| _Sex : is not male_ | _L7XfyMC25Av_ | _Hide pregnancy status fields when the person is male or the field is blank_ | _A{Sex} != &#39;FEMALE&#39;_ |
-| _Symptom onset date should be less or equal to date of diagnosis_ | _bgcHuAXU2zw_ | _Shows waning if symptom onset date is less or equal to date of diagnosis_ | _#{symptom\_onset\_date} \&gt; V{event\_date}_ |
-| _Symptoms set days with symptoms from onset date_ | _DrYcwLbT2il_ | _Calculates the number of days with symptoms based on the date of the event and symptoms onset date_ | _d2:hasValue(&#39;symptom\_onset\_date&#39;) &amp;&amp; !d2:hasValue(&#39;days\_with\_symptoms&#39;) &amp;&amp; (#{symptom\_onset\_date} \&lt;= V{event\_date}) &amp;&amp; #{symptom\_onset\_date} != &#39;&#39;_ |
-| _Symptoms set negative days with symptoms for onset date_ | _WFYSQidLXEf_ | _Assign days with symptoms as a negative value for calculating onset date_ | _d2:hasValue(&#39;days\_with\_symptoms&#39;)_ |
-| _Symptoms set onset date from days with symptoms_ | _jsVq7Xj8g9c_ | _Calculates the onset date based on the number of days with symptoms and the date of the event_ | _!d2:hasValue(&#39;symptom\_onset\_date&#39;) &amp;&amp; d2:hasValue(&#39;days\_with\_symptoms&#39;)_ |
-| _Tested by : any value and Species type : null_ | _Xc2gb715H50_ | _If the case is tested for confirmation, there must be a species type identified_ | _d2:hasValue(&#39;TestedBy&#39;) &amp;&amp; #{MalariaSpecies} == &#39;&#39;_ |
-| _Tested by : display as indicator_ | _amqPvJ3L7oK_ | _Display the malaria test that was performed in the indicator widget_ | _d2:hasValue(&#39;TestedBy&#39;)_ |
-| _Tested by : microscopy not selected_ | _PynNbDcsdVU_ | _Hide related fields to Diagnosis by if Diagnosis by != microscopy_ | _#{TestedBy} != &#39;MICROSCOPY&#39;_ |
-| _Tested by : no value selected_ | _YZgB6IybcL1_ | _Hide malaria test result and malaria species type of the tested by field is not filled in_ | _#{TestedBy} == &#39;&#39;_ |
-| _Tested by : other not selected_ | _mcwkeTxUN67_ | _Hide related fields to Diagnosis by if Diagnosis by != other_ | _#{TestedBy} != &#39;OTHER&#39;_ |
-| _Travel outside hide 1st night_ | _reNaR4EK74H_ | _If you marked no or null on &quot;recent travel outside country&quot; then hide first night_ | _#{Travel Outside Country} == &#39;&#39; || #{Travel Outside Country} == &#39;NO&#39;_ |
-| _Travel outside hide country name_ | _uDti9DthV1h_ | _If you marked no or null on &quot;recent travel outside country&quot; then hide travel country name_ | _#{Travel Outside Country} == &#39;&#39; || #{Travel Outside Country} == &#39;NO&#39;_ |
-| _Travel outside hide last month_ | _Rreg3r1JiBh_ | _If you marked no or null on &quot;recent travel outside country&quot; then hide travel within the last 30 days_ | _#{Travel Outside Country} == &#39;&#39; || #{Travel Outside Country} == &#39;NO&#39;_ |
-| _Travel outside hide last night_ | _aqtkn2WKrqq_ | _If you marked no or null on &quot;recent travel outside country&quot; then hide last night_ | _#{Travel Outside Country} == &#39;&#39; || #{Travel Outside Country} == &#39;NO&#39;_ |
-| _Travel outside hide region district_ | _kdeJT5Otwsc_ | _If you marked no or null on &quot;recent travel outside country&quot; then hide region district_ | _#{Travel Outside Country} == &#39;&#39; || #{Travel Outside Country} == &#39;NO&#39;_ |
-| _Travel outside hide town village_ | _Fj82yKhmYJN_ | _If you marked no or null on &quot;recent travel outside country&quot; then hide town village_ | _#{Travel Outside Country} == &#39;&#39; || #{Travel Outside Country} == &#39;NO&#39;_ |
-| _Travel within hide first night_ | _WTGf4T1so2J_ | _If you marked no or null on &quot;recent travel within country&quot; then hide first night_ | _#{Recent Travel Within Country} == &#39;&#39; || #{Recent Travel Within Country} == &#39;NO&#39;_ |
-| _Travel within hide last month_ | _tqFHykJ37zJ_ | _If you marked no or null on &quot;recent travel within country&quot; then hide travel within the last 30 days_ | _#{Recent Travel Within Country} == &#39;&#39; || #{Recent Travel Within Country} == &#39;NO&#39;_ |
-| _Travel within hide Last night_ | _JcgCZeirV6n_ | _If you marked no or null on &quot;recent travel within country&quot; then hide last night_ | _#{Recent Travel Within Country} == &#39;&#39; || #{Recent Travel Within Country} == &#39;NO&#39;_ |
-| _Travel within hide Region/District_ | _zsgZLubWrms_ | _If you marked no or null on &quot;recent travel within country&quot; then hide Region/District_ | _#{Recent Travel Within Country} == &#39;&#39; || #{Recent Travel Within Country} == &#39;NO&#39;_ |
-| _Travel within hide Town/village_ | _p0kqW6hTYde_ | _If you marked no or null on &quot;recent travel within country&quot; then hide town/Village_ | _#{Recent Travel Within Country} == &#39;&#39; || #{Recent Travel Within Country} == &#39;NO&#39;_ |
+| name | id | description | condition |
+|---|---|---|---|
+| Assign event date to Diagnosis date Data Element - Diagnosis and treatment | DkNSQkPFdRe | Assigns the event date from the stage feature to the to diagnosis date Data Element - Diagnosis and treatment - this is so that it can be moved to other stages. | TRUE |
+| Assign value from admission status if admission has value in diagnosis stage | PDZeegogWhP | If admission status has value in diagnosis stage, add there, this allows for calculation of inpatient deaths | d2:hasValue( 'Admitted_previous' ) |
+| Assign value from detection setting if detection setting has value | kGe41u6HxR4 | If Detection setting has a value in the diagnosis stage,add it here | d2:hasValue( 'DetectionSettingNewestDiagnosis' ) |
+| Assign value from Species identified if species has value in diagnosis stage | LXpKv2W5fi2 | If species has value in diagnosis stage, add in investigation, this allows for calculation of inpatient deaths | d2:hasValue( 'MalariaSpecies' ) |
+| Assign value of date of completion to date of notification | Co9AGieq1lZ | If there is no value in the notification date, add the date of completion | !d2:hasValue( 'notification_date' ) |
+| Assign value to diagnosis date from previous event - Case Investigation | o1I4C1t0m6x | If the case investigation stage has a date of diagnosis, add it to the DE in this stage (Hidden section) | d2:hasValue(#{Diagnosis_date_previous} ) |
+| Assign value to diagnosis date from previous event - Focus routine investigation | JizPUKOPn9N | Assign value to diagnosis date from previous event - Focus routine investigation (Hidden Section) | d2:hasValue(#{Diagnosis_date_previous} ) |
+| Case classified as : display as indicator | nmNzVmTYZOb | Display the results of the malaria case classification in the indicator widget | d2:hasValue('CaseClassifiedAs') |
+| Date of birth : assign age in years | woDbRbosGCn | Assign the age in years based on the difference between the selected date of birth and the enrollment date into the program | d2:hasValue( A{dateofbirth} ) |
+| Detection setting: proactive not selected | vvxaCLtSXqI | Hide Reason for conducting foci investigation if detection setting != "Proactive (ACD)" | #{DetectionSetting}  ==  ''  \|\| #{DetectionSetting}   == 'PASSIVE'  \|\| #{DetectionSetting}  == 'REACTIVE' |
+| Hide Detection setting if no value in diagnosis | gUJMdn2k9q0 | If Detection setting does not have a value in the diagnosis stage, hide it here. | d2:hasValue( 'DetectionSettingNewestDiagnosis' ) == false |
+| Hide Section for indicator purposes in case Investigation and classification | nXiXXY2Syhc | Hide Section for indicator purposes in case Investigation and classification | TRUE |
+| Hide section for indicator purposes in case outcome stage | bt2DABwwFbZ | we need to transfer value to a DE in this section from a different section | TRUE |
+| Hide section for indicator purposes in Diagnosis stage | TgZZ29X7wDS | Hide Section for indicator purposes in case Investigation and classification | TRUE |
+| IF Microscopy is selected then HIDE Mixed | a81cE9cycNk | IF Microscopy is selected then HIDE Mixed | #{DIAGNOSIS} == 'MICROSCOPY' |
+| If RDT selected then HIDE p-Ovale and P. Malariae | fdKz1gGZe4w |   | #{DIAGNOSIS} == 'RDT' |
+| Indoor residual spraying : not conducted | SFNzLxobTyL | Hide the number of houses sprayed if no houses are sprayed | #{IndoorResidualSpraying}!= true |
+| LLIN distribution : not conducted | cQRB9WLtnRj | Hide the number of nets distributed if no nets are distributed | #{LLINdistribution} != true |
+| Location of investigation != Household then hide household | tK7B2BFBdmI | Location of investigation != Household then hide household | #{MalariaLocation} != 'HOUSEHOLD' |
+| Malaria history : no history of malaria | tMawDoGpOlz | Hide related fields if the case has no history of malaria | !#{malariahistory} |
+| Malaria species type != Other | eyawANeGsf4 | Hide the other species type field if the malaria species type is blank or != Other | #{MalariaSpecies} == '' \|\| #{MalariaSpecies} == 'PF' \|\| #{MalariaSpecies} == 'PV' \|\| #{MalariaSpecies} == 'MIX'  \|\| #{MalariaSpecies} == 'PO' \|\| #{MalariaSpecies} == 'PM' |
+| Malaria species type : display as indicator | P2WqApkndXb | Display the results of the malaria species type as identified by the malaria test in the indicator widget | d2:hasValue('MalariaSpecies') |
+| Reason for conduction case investigation != Other | XPkmjVblOJU | Hide the field for other reason for conducting case investigation if other is not selected | #{ReasonCaseInvestigation} == '' \|\| #{ReasonCaseInvestigation} == 'DEVELOPMENT_OF_ACTIVITIES' \|\| #{ReasonCaseInvestigation} == 'POPULATION_MOVEMENT' \|\| #{ReasonCaseInvestigation} == 'REFUGEE_CRISIS' \|\| #{ReasonCaseInvestigation} == 'CLIMATIC_TRIGGERS'  |
+| Referred : false | IkvodVu4vZ3 | Hide reason for referral if a referral was not made | #{Referred} != 'REFERRED' |
+| Residents positive for malaria > Residents tested for malaria | JVzsxIkGzAK | Residents positive for malaria > Residents tested for malaria | (d2:hasValue('HHMalariaTest') && d2:hasValue('HHMalariaPositive'))  && (#{HHMalariaPositive} > #{HHMalariaTest}) |
+| Residents tested for malaria > Residents in household | nMmnj4Nb2vc | Residents tested for malaria > Residents in household | (d2:hasValue('HHMalariaTest') && d2:hasValue('HHResidents'))  && (#{HHMalariaTest} > #{HHResidents}) |
+| Residents who own a bed net > Residents in household | mfRXzxXthu2 | Show warning if the Residents who slept under net the previous night > Residents in household | (d2:hasValue('HHownbednet') && d2:hasValue('HHResidents')) && (#{HHownbednet} > #{HHResidents}) |
+| Residents who slept under net the previous night > Residents in household | lcpfnocmJ8z | Show warning if the Residents who slept under net the previous night > Residents in household | (d2:hasValue('HHSleptUnderNet') && d2:hasValue('HHResidents')) && (#{HHSleptUnderNet} > #{HHResidents}) |
+| Sex : female, Age <= 13 | hhsVY8oobaz | Hide pregnancy status and pregnancy months when the person is female and <= 13 | A{Sex} == 'FEMALE' && (d2:yearsBetween(A{dateofbirth}, V{current_date}) <= 13) |
+| Sex : is not male | L7XfyMC25Av | Hide pregnancy status fields when the person is male or the field is blank | A{Sex} != 'FEMALE' |
+| Symptom onset date should be less or equal to date of diagnosis | bgcHuAXU2zw | Shows waning if symptom onset date is less or equal to date of diagnosis | #{symptom_onset_date} > V{event_date} |
+| Symptoms set days with symptoms from onset date | DrYcwLbT2il | Calculates the number of days with symptoms based on the date of the event and symptoms onset date | d2:hasValue('symptom_onset_date') && !d2:hasValue('days_with_symptoms') && (#{symptom_onset_date} <= V{event_date}) && #{symptom_onset_date} != '' |
+| Symptoms set negative days with symptoms for onset date | WFYSQidLXEf | Assign days with symptoms as a negative value for calculating onset date | d2:hasValue('days_with_symptoms') |
+| Symptoms set onset date from days with symptoms | jsVq7Xj8g9c | Calculates the onset date based on the number of days with symptoms and the date of the event | !d2:hasValue('symptom_onset_date') && d2:hasValue('days_with_symptoms') |
+| Tested by : any value and Species type : null | Xc2gb715H50 | If the case is tested for confirmation, there must be a species type identified | d2:hasValue('TestedBy') && #{MalariaSpecies} == '' |
+| Tested by : display as indicator | amqPvJ3L7oK | Display the malaria test that was performed in the indicator widget | d2:hasValue('TestedBy') |
+| Tested by : microscopy not selected | PynNbDcsdVU | Hide related fields to Diagnosis by if Diagnosis by != microscopy | #{TestedBy} != 'MICROSCOPY' |
+| Tested by : no value selected | YZgB6IybcL1 | Hide malaria test result and malaria species type of the tested by field is not filled in | #{TestedBy} == '' |
+| Tested by : other not selected | mcwkeTxUN67 | Hide related fields to Diagnosis by if Diagnosis by != other | #{TestedBy} != 'OTHER' |
+| Travel outside hide 1st night | reNaR4EK74H | If you marked no or null on "recent travel outside country" then hide first night | #{Travel Outside Country} == '' \|\| #{Travel Outside Country}  == 'NO' |
+| Travel outside hide country name | uDti9DthV1h | If you marked no or null on "recent travel outside country" then hide travel country name | #{Travel Outside Country} == '' \|\| #{Travel Outside Country}  == 'NO' |
+| Travel outside hide last month | Rreg3r1JiBh | If you marked no or null on "recent travel outside country" then hide travel within the last 30 days | #{Travel Outside Country} == '' \|\| #{Travel Outside Country}  == 'NO' |
+| Travel outside hide last night | aqtkn2WKrqq | If you marked no or null on "recent travel outside country" then hide last night | #{Travel Outside Country} == '' \|\| #{Travel Outside Country}  == 'NO' |
+| Travel outside hide region district | kdeJT5Otwsc | If you marked no or null on "recent travel outside country" then hide region district | #{Travel Outside Country} == '' \|\| #{Travel Outside Country}  == 'NO' |
+| Travel outside hide town village | Fj82yKhmYJN | If you marked no or null on "recent travel outside country" then hide town village | #{Travel Outside Country} == '' \|\| #{Travel Outside Country}  == 'NO' |
+| Travel within hide first night | WTGf4T1so2J | If you marked no or null on "recent travel within country" then hide first night | #{Recent Travel Within Country} == '' \|\| #{Recent Travel Within Country}  == 'NO' |
+| Travel within hide last month | tqFHykJ37zJ | If you marked no or null on "recent travel within country" then hide travel within the last 30 days | #{Recent Travel Within Country} == '' \|\| #{Recent Travel Within Country}  == 'NO' |
+| Travel within hide Last night | JcgCZeirV6n | If you marked no or null on "recent travel within country" then hide last night | #{Recent Travel Within Country} == '' \|\| #{Recent Travel Within Country}  == 'NO' |
+| Travel within hide Region/District | zsgZLubWrms | If you marked no or null on "recent travel within country" then hide Region/District | #{Recent Travel Within Country} == '' \|\| #{Recent Travel Within Country}  == 'NO' |
+| Travel within hide Town/village | p0kqW6hTYde | If you marked no or null on "recent travel within country" then hide town/Village | #{Recent Travel Within Country} == '' \|\| #{Recent Travel Within Country}  == 'NO' |
 
 ## 5.2 Validation rules for Malaria Foci Investigation and response
 
 | name | id | description | condition |
-| --- | --- | --- | --- |
-| Assign value date of previous focus classification | nkd671Zt84p | It shows the last date the focus was classified | d2:hasValue( &#39;date\_of\_classification\_previous&#39; ) == true |
+|---|---|---|---|
+| Assign value date of previous focus classification | nkd671Zt84p | It shows the last date the focus was classified | d2:hasValue( 'date_of_classification_previous' ) == true |
 | Development activity: null | dCKxEP5bGvh | Hide the development activity selection if there is no development activity present | !#{DevelopmentActivity} |
-| Display a Check next to previous Indoor residual spraying if it was previously selected as an action | ITYLhBRfOZA | Display a Check next to previous Indoor residual spraying if was previously selected as an action | d2:hasValue( &#39;Indoor residual Spraying PREVIOUS&#39; ) |
-| Display a Check next to previous Larval Source Management if it was previously selected as an action | WhQGnsfxs7j | Display a Check next to previous Larval Source Management if was previously selected as an action | d2:hasValue( &#39;Larval Source Management PREVIOUS&#39; ) |
-| Display a Check next to previousLLIN if LLIN was previously selected as an action | HuhD0jX9ARr | Display a Check next to previous LLIN if LLIN was previously selected as an action | d2:hasValue( &#39;LLIN PREVIOUS&#39; ) |
-| Display vector classification | Ogo0Ciuybz3 | If a vector was classified previously, this will show that classification | d2:hasValue( &#39;Previous Focus Classification&#39; ) |
-| Foci classification : display as indicator | TxkEg880fsw | Display the results of the foci classification in the indicator widget | d2:hasValue(&#39;FociClassification&#39;) |
-| Hide &quot;Development activity other specify&quot; | QqQxy5JKBt2 | Unless &quot;Development activity= Other&quot;, hide &quot;Development activity other specify&quot; | #{Development activity Other} == &#39;&#39; || #{Development activity Other} == &#39;AGRICULTURE&#39; || #{Development activity Other} == &#39;CONSTRUCTION&#39; || #{Development activity Other} == &#39;MINING&#39; || #{Development activity Other} == &#39;PLANTATION&#39; |
-| Hide &quot;Population type specify other&quot; | IAWNVLOF8Rd | If population type &quot;other&quot; is not selected, hide &quot;Population type specify other&quot; | !d2:hasValue(&#39;PopulationTypeOther&#39;) || !#{PopulationTypeOther} |
-| Hide focus status section if no previous status | mIDKsALzkMc | If there was not a focus status previously registered, then the section called &quot;Focus status&quot; does not appear. Typically when it&#39;s the first investigation conducted.
- | d2:hasValue( &#39;date\_of\_classification\_previous&#39; ) == false || d2:hasValue( &#39;date\_of\_classification\_previous&#39; ) == false |
-| Hide insecticide list if not proven resistant to insecticides | eEgli5CXC9g | If it | #{insecticide\_resistance\_proven} != true |
-| If zero houses visited, hide Vector control section | khygXEKXJSe |
- | #{households\_visited} == 0 |
-
-##
-
+| Display a Check next to previous Indoor residual spraying if it was previously selected as an action | ITYLhBRfOZA | Display a Check next to previous Indoor residual spraying if was previously selected as an action | d2:hasValue( 'Indoor residual Spraying PREVIOUS' ) |
+| Display a Check next to previous Larval Source Management if it was previously selected as an action | WhQGnsfxs7j | Display a Check next to previous Larval Source Management if was previously selected as an action | d2:hasValue( 'Larval Source Management PREVIOUS' ) |
+| Display a Check next to previousLLIN if LLIN was previously selected as an action | HuhD0jX9ARr | Display a Check next to previous LLIN if LLIN was previously selected as an action | d2:hasValue( 'LLIN PREVIOUS' ) |
+| Display vector classification | Ogo0Ciuybz3 | If a vector was classified previously, this will show that classification | d2:hasValue( 'Previous Focus Classification' ) |
+| Foci classification : display as indicator | TxkEg880fsw | Display the results of the foci classification in the indicator widget | d2:hasValue('FociClassification') |
+| Hide "Development activity other specify" | QqQxy5JKBt2 | Unless "Development activity= Other", hide "Development activity other specify" | #{Development activity Other} == '' \|\| #{Development activity Other} == 'AGRICULTURE' \|\| #{Development activity Other} == 'CONSTRUCTION' \|\| #{Development activity Other} == 'MINING' \|\| #{Development activity Other} == 'PLANTATION' |
+| Hide "Population type specify other" | IAWNVLOF8Rd | If population type "other" is not selected, hide "Population type specify other" | !d2:hasValue(‘PopulationTypeOther’) \|\| !#{PopulationTypeOther} |
+| Hide focus status section if no previous status | mIDKsALzkMc | If there was not a focus status previously registered, then the section called “Focus status” does not appear. Typically when it’s the first investigation conducted. | d2:hasValue( 'date_of_classification_previous' ) == false \|\| d2:hasValue( 'date_of_classification_previous' ) == false |
+| Hide insecticide list if not proven resistant to insecticides | eEgli5CXC9g | If it | #{insecticide_resistance_proven} != true |
+| If zero houses visited, hide Vector control section | khygXEKXJSe |  | #{households_visited} == 0 |
 
 ## Analytics
 
-## Dashboards
+### Dashboards
 
 The package includes seven dashboards, 6 of them are based exclusively on indicators from MAL-CS, the remaining one has a combination of Indicators from MAL-CS and MAL-FOCI. A number has been added to their name to keep them in a logical order and they are prefixed with the respective programme.
 
-##
+#### _MAL-CS- 01 Trends_
 
-### _MAL-CS- 01 Trends_
+ ![](RackMultipart20211119-4-1qe0v2k_html_fc87ac26d76d817.png)
 
-### ![](RackMultipart20211119-4-1qe0v2k_html_fc87ac26d76d817.png)
-
-### MAL-CS-02 Epidemiology
+#### MAL-CS-02 Epidemiology
 
 ![](RackMultipart20211119-4-1qe0v2k_html_53409dd2aa06f5d3.png)
 
-##
+#### MAL-CS-03 Treatment and Diagnostic
 
-### MAL-CS-03 Treatment and Diagnostic
+![](RackMultipart20211119-4-1qe0v2k_html_beb64b0993f1ad85.png)
 
-##
+#### MAL-CS-04 Case Notification &amp; Investigation
 
-## ![](RackMultipart20211119-4-1qe0v2k_html_beb64b0993f1ad85.png)
+![](RackMultipart20211119-4-1qe0v2k_html_142b4bd8ff997bf7.png)
 
-##
+#### MAL-CS-05- Case Classification
 
-### MAL-CS-04 Case Notification &amp; Investigation
+![](RackMultipart20211119-4-1qe0v2k_html_a1687c77b462acc5.png)
 
-##
+#### MAL-CS-06- Geolocation
 
-## ![](RackMultipart20211119-4-1qe0v2k_html_142b4bd8ff997bf7.png)
+![](RackMultipart20211119-4-1qe0v2k_html_31e5e89a81c5b84d.png)
 
-##
+####MAL-FOCI
 
-### MAL-CS-05- Case Classification
+![](RackMultipart20211119-4-1qe0v2k_html_6bbb82852212866e.png)
 
-## ![](RackMultipart20211119-4-1qe0v2k_html_a1687c77b462acc5.png)
-
-##
-
-### MAL-CS-06- Geolocation
-
-##
-
-## ![](RackMultipart20211119-4-1qe0v2k_html_31e5e89a81c5b84d.png)
-
-MAL-FOCI
-
- ![](RackMultipart20211119-4-1qe0v2k_html_6bbb82852212866e.png)
-
-##
-
-## Indicators and Program Indicators
+### Indicators and Program Indicators
 
 The indicators on this package have been built based on specifications from guiding documents from the WHO. Due to limitations on calculating indicators based on data from multiple events, some programme rules have been used to move data into &quot;hidden sections&#39;&#39; throughout the program. When modifying the package, extra care should be taken that the data elements in these hidden sections are being populated correctly. This can be tested directly in Tracker by removing the program rules which hide the sections. The rules for this are all called &quot;_Hide Section for indicator purposes&quot;. In DHIS2, we differentiate between &quot;Program indicators&quot;, which are based on counting events or enrollments based on a filter, and &quot;Indicators&quot; which are constructed with a numerator and denominator. In most cases for this program, we are using program indicators to create the indicators.
 
- 6.1 Program Indicators:_
+ 6.1 Program Indicators:
 
-| _ **pi\_name** _ | _ **pi\_shortname** _ | _ **pi\_desc** _ | _ **pi\_filter** _ |
-| --- | --- | --- | --- |
-| _Age 0-5_ | _Age 0-5_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=0 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;6_ |
-| _Age 16-26_ | _Age 16-26_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=16 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;27_ |
-| _Age 27-37_ | _Age 27-37_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=27 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;38_ |
-| _Age 38-49_ | _Age 38-49_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=38 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;50_ |
-| _Age 50-60_ | _Age 50-60_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=50 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;61_ |
-| _Age 6-16_ | _Age 6-16_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=6 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;16_ |
-| _Age 61-71_ | _Age 61-71_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=61 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;72_ |
-| _Age 72-82_ | _Age 72-82_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=72 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;83_ |
-| _Age 83-93_ | _Age 83-93_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=83 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;94_ |
-| _Age 94-104_ | _Age 94-104_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&gt;=94 &amp;&amp; d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment\_date})\&lt;104_ |
-| _MAL-CS- Active case detection_ | _Active Case detection_ | _Detection by health workers of malaria cases at community and household levels, sometimes in population groups that are considered at high risk. Active case detection can consist of screening for fever followed by parasitological examination of all febrile patients or as parasitological examination of the target population without prior screening for fever._ | _#{hYyB7FUS5eR.fazCI2ygYkq} == &#39;PROACTIVE&#39; || #{hYyB7FUS5eR.fazCI2ygYkq} == &#39;REACTIVE&#39;_ |
-| _MAL-CS- Case investigated_ | _Malaria Case investigated_ |
- | _d2:hasValue(#{wYTF0YCHMWr.fazCI2ygYkq})_ |
-| _MAL-CS- Cases classified_ | _Malaria Cases classified_ | _Number of cases classified as either indigenous, introduced, imported or induced_ | _(#{eHvTba5ijAh.y3CG06h1Clh}==&#39;IMPORTED&#39;||__#{eHvTba5ijAh.y3CG06h1Clh}==&#39;INTRODUCED&#39;||#{eHvTba5ijAh.y3CG06h1Clh}==&#39;INDUCED&#39;||#{eHvTba5ijAh.y3CG06h1Clh} == &#39;INDIGENOUS&#39;||#{eHvTba5ijAh.y3CG06h1Clh} == &#39;RECRUDESCENT&#39;) &amp;&amp; V{program\_stage\_id}==&#39;eHvTba5ijAh&#39;_ |
-| _MAL-CS- Cases detected through PCD_ | _Cases detected through PCD_ | _Number of cases detected through Passive case detection_ | _#{hYyB7FUS5eR.fazCI2ygYkq} == &#39;PASSIVE&#39;_ |
-| _MAL-CS- Cases diagnosed last 24 hours_ | _Cases last 24 hours_ | _Number of cases diagnosed in the previous 24 hours_ | _d2:daysBetween(V{event\_date},V{analytics\_period\_end}) == 0 &amp;&amp;_
-_d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq})_ |
-| _MAL-CS- Cases due to mixed infection_ | _Malaria cases mixed_ | _A malaria infection caused by more than one species of plasmodium detected by RDT, microscopy or a molecular test_ | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;MIX&#39;_ |
-| _MAL-CS- Cases tested by microscopy_ | _Case tested by microscopy_ | _The number of suspected malaria cases tested by Microscopy_ | _#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; &amp;&amp; V{program\_stage\_id} == &#39;hYyB7FUS5eR&#39;_ |
-| _MAL-CS Confirmed cases investigated in N2 days (3 days)_ | _Cases reported within 3 days_ | _Number of confirmed (PCD) malaria cases investigated within (N2),the number of days after confirmation, defined in the national guideline_ | _((V{program\_stage\_id} == &#39;hYyB7FUS5eR&#39; &amp;&amp; d2:daysBetween(V{enrollment\_date},V{event\_date}) \&lt;4) &amp;&amp;_
-_d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq}) ) &amp;&amp; #{hYyB7FUS5eR.fazCI2ygYkq} == &#39;PASSIVE&#39;_ |
-| _MAL-CS- Confirmed cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility_ | _Cases tested with microscopy or RDT in 24h_ | _N: Number of confirmed cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility_ | _V{program\_stage\_id} == &#39;hYyB7FUS5eR&#39; &amp;&amp; d2:daysBetween(V{event\_date},#{hYyB7FUS5eR.fPbtS7glDT2}) \&lt;2 &amp;&amp; (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; || #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- Confirmed malaria cases_ | _Confirmed malaria cases_ | _A case due to mosquito-borne transmission and is acquired outside the area in which it was detected, in a known malarious area to or from which the patient has travelled outside the elimination area_ | _d2:hasValue(#{hYyB7FUS5eR.qdjVZojEK8S}) &amp;&amp; V{program\_stage\_id}==&#39;hYyB7FUS5eR&#39;_ |
-| _MAL CS- Confirmed malaria cases investigated within N2 days_ | _Confirmed malaria cases investigated in N2 days_ | _Number of confirmed malaria cases investigated within (N2),the number of days after confirmation, defined in the national guideline (3 days)_ | _d2:daysBetween(V{event\_date},#{wYTF0YCHMWr.ObiXORrILyV}) \&lt; 4_ |
-| _MAL-CS- Confirmed with a known species_ | _Confirmed with known species_ |
- | _d2:hasValue(#{hYyB7FUS5eR.vGxpKVMkmaW})_ |
-| _MAL-CS- Female_ | _Female_ | _Female cases_ | _A{oindugucx72} == &#39;FEMALE&#39;_ |
-| _MAL-CS- Foci investigated within N3 days of diagnosis_ | _Foci investigated within N3 days of diagnosis_ |
- | _d2:daysBetween(#{KwrBvn1EJT3.ObiXORrILyV},V{event\_date}) \&lt;= 3_ |
-| _MAL-CS- Foci with response within N7 days of diagnosis_ | _Foci with response within N7 days of diagnosis_ | _N: Number of case notifications received within N1 (24h) of diagnosis_ | _(V{program\_stage\_id} == &#39;KwrBvn1EJT3&#39; &amp;&amp; d2:hasValue(#{KwrBvn1EJT3.ObiXORrILyV}) &amp;&amp; d2:hasValue(#{KwrBvn1EJT3.G7f2D1vl3fD}) &amp;&amp; d2:daysBetween(#{KwrBvn1EJT3.ObiXORrILyV},#{KwrBvn1EJT3.G7f2D1vl3fD}) \&lt;= 7)_ |
-| _MAL-CS- Imported_ | _Imported malaria cases_ | _Confirmed malaria cases classified as imported. A case due to mosquito-borne transmission and is acquired outside the area in which it was detected, in a known malarious area to or from which the patient has travelled outside the elimination area_ | _#{wYTF0YCHMWr.bcGuRgKDZei} == &#39;IMPORTED&#39;_ |
-| _MAL-CS- Indigenous (Local)_ | _Indigenous malaria cases_ | _Confirmed malaria cases classified as indigenous - A case contracted locally with no evidence of importation and no direct link to transmission from an imported case_ | _#{eHvTba5ijAh.y3CG06h1Clh}== &#39;INDIGENOUS&#39; || #{eHvTba5ijAh.y3CG06h1Clh} == &#39;INTRODUCED&#39;_ |
-| _MAL-CS- Induced_ | _Induced_ | _Cases not due to mosquito-borne transmission e.g blood transfusion or congenital malaria_ | _#{wYTF0YCHMWr.bcGuRgKDZei} == &#39;INDUCED&#39;_ |
-| _MAL-CS- inpatient_ | _MAL-CS- inpatient case_ |
- | _#{hYyB7FUS5eR.MKMyvXshCdB}== &#39;ADMITTED&#39;_ |
-| _MAL-CS- inpatient deaths_ | _inpatient deaths_ |
- | _#{eHvTba5ijAh.MKMyvXshCdB} == &#39;ADMITTED&#39; &amp;&amp; #{eHvTba5ijAh.zXNfOKXRBA9} == &#39;DIED&#39;_ |
-| _MAL-CS- Introduced_ | _Introduced_ | _Confirmed malaria cases classified as introduced. A case contracted locally, with strong epidemiological evidence linking it directly to a known imported case (first-generation local transmission). First-generation local transmission; epidemiologically linked to proven imported case_ | _#{wYTF0YCHMWr.bcGuRgKDZei} == &#39;INTRODUCED&#39;_ |
-| _MAL-CS- Malaria age current (months)_ | _Malaria age current (months)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k},V{current\_date})\&lt;1_ |
-| _MAL-CS Malaria age current (years)_ | _Malaria age current (years)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k},V{current\_date}) \&gt; 0_ |
-| _MAL-CS- Malaria cases (All registered)_ | _All Malaria Cases_ |
- | _TRUE_ |
-| _MAL-CS- Malaria death_ | _Malaria death_ |
- | _#{eHvTba5ijAh.zXNfOKXRBA9} == &#39;DIED&#39; &amp;&amp; V{program\_stage\_id} == &#39;eHvTba5ijAh&#39;_ |
-| _MAL-CS- Malaria test - RDT_ | _Malaria test - RDT_ | _The number of suspected malaria cases tested by RDT_ | _#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Male_ | _Male_ |
- | _A{oindugucx72} == &#39;MALE&#39;_ |
-| _MAL-CS- microscopy 0-4 years female_ | _microscopy (f 0-4)_ | _The number of suspected malaria cases tested by Microscopy with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- microscopy 0-4 years male_ | _microscopy (m 0-4)_ | _The number of suspected malaria cases tested by Microscopy with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- microscopy 15+ years female_ | _microscopy (f 15+)_ | _The number of suspected malaria cases tested by Microscopy with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- microscopy 15+ years male_ | _microscopy (m 15+)_ | _The number of suspected malaria cases tested by Microscopy with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- microscopy 5-14 years female_ | _microscopy (f 5-14)_ | _The number of suspected malaria cases tested by Microscopy with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- microscopy 5-14 years male_ | _microscopy (m 5-14)_ | _The number of suspected malaria cases tested by Microscopy with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- microscopy (other)_ | _mic (other)_ |
- | _#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;OTHER&#39;_ |
-| _MAL-CS- microscopy Pf._ | _microscopy Pf._ |
- | _#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- microscopy Pf. 0-4 years female_ | _microscopy (Pf., f 0-4)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39;and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- microscopy Pf. 0-4 years male_ | _microscopy (Pf., m 0-4)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39;and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- microscopy Pf. 15+ years female_ | _microscopy (Pf., f 15+)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39;and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- microscopy Pf. 15+ years male_ | _microscopy (Pf., m 15+)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39;and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- microscopy Pf. 5-14 years female_ | _microscopy (Pf., f 5-14)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39;and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- microscopy Pf. 5-14 years male_ | _microscopy (Pf., m 5-14)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39;and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39;_ |
-| _MAL-CS- Mixed_ | _Mixed_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;MIX&#39;_ |
-| _MAL-CS- Mixed RDT_ | _Mixed RDT_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;MIX&#39; &amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Nationality: BY COUNTRY_ | _NATIONALITY: BY COUNTRY_ | _One PI per country based on attribute &quot;Nationality&quot;_ | _A{spkM2E9dn2J} == &#39;AF&#39;_ |
-| _MAL-CS- Newly diagnosed_ | _Newly diagnosed_ | _Number of newly diagnosed malaria cases during a defined period in a specified population_ | _d2:daysBetween(V{enrollment\_date}, V{analytics\_period\_start}) \&gt; 0 &amp;&amp; d2:daysBetween(V{enrollment\_date}, V{analytics\_period\_end}) \&lt; 0_ |
-| _MAL-CS- Notification received within N1 (24 hs) of diagnosis_ | _Cases notified within 24hs_ | _N: Number of case notifications received within N1 (24h) of diagnosis_ | _(V{program\_stage\_id} == &#39;hYyB7FUS5eR&#39; &amp;&amp; d2:daysBetween(V{event\_date},#{hYyB7FUS5eR.fPbtS7glDT2}) \&lt; 2 &amp;&amp; d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq}) &amp;&amp; d2:hasValue(#{hYyB7FUS5eR.qdjVZojEK8S}) )_ |
-| _MAL-CS- Not pregnant_ | _Not pregnant_ | _Not pregnant female cases_ | _A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; (A{sPDKWSQ2vKQ}== &#39;NO&#39; || A{sPDKWSQ2vKQ}== &#39;&#39;)_ |
-| _MAL-CS- Number of confirmed Malaria Cases investigated (PCD)_ | _Confirmed cases investigated (PCD)_ | _Number of positive cases detected through PCD and investigated_ | _#{wYTF0YCHMWr.fazCI2ygYkq} == &#39;PASSIVE&#39;_ |
-| _MAL-CS- Occupation Farmer_ | _Occupation Farmer_ | _Occupation Farmer_ | _A{ZZmkcCkzzWr} == &#39;FARMER&#39;_ |
-| _MAL-CS- Occupation Migrant worker_ | _Occupation Migrant worker_ | _Occupation Migrant worker_ | _A{ZZmkcCkzzWr} == &#39;MIGRANTWORKER&#39;_ |
-| _MAL-CS- Occupation Mine Worker_ | _Occupation Mine Worker_ | _Occupation Mine worker_ | _A{ZZmkcCkzzWr} == &#39;MINEWORKER&#39;_ |
-| _MAL-CS- Occupation Nurse_ | _Occupation Nurse_ | _Occupation Nurse_ | _A{ZZmkcCkzzWr} == &#39;NURSE&#39;_ |
-| _MAL-CS- Occupation Seasonal worker_ | _Occupation Seasonal worker_ | _Occupation Seasonal worker_ | _A{ZZmkcCkzzWr} == &#39;SEASONALWORKER&#39;_ |
-| _MAL-CS- Occupation Student_ | _Occupation Student_ | _Occupation Student_ | _A{ZZmkcCkzzWr} == &#39;STUDENT&#39;_ |
-| _MAL-CS- Occupation Teacher_ | _Occupation Teacher_ | _Occupation Teacher_ | _A{ZZmkcCkzzWr} == &#39;TEACHER&#39;_ |
-| _MAL-CS- Occupation Truck driver_ | _Occupation Truck driver_ | _Occupation Truck driver_ | _A{ZZmkcCkzzWr} == &#39;TRUCKDRIVER&#39;_ |
-| _MAL-CS- Other Species (Cases due to)_ | _MAL-CS- Other Species_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;OTHER&#39;_ |
-| _MAL-CS- outpatient_ | _outpatient_ |
- | _#{hYyB7FUS5eR.MKMyvXshCdB} == &#39;ADMITTED&#39;_ |
-| _MAL-CS- Passive case detection_ | _Passive Case detection_ | _Detection by health workers of malaria cases at community and household levels, sometimes in population groups that are considered at high risk. Active case detection can consist of screening for fever followed by parasitological examination of all febrile patients or as parasitological examination of the target population without prior screening for fever._ | _#{hYyB7FUS5eR.fazCI2ygYkq} == &#39;PASSIVE&#39;_ |
-| _MAL-CS- Pf. 0-4 years female RDT &amp; Microscopy_ | _Pf., f 0-4_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- Pf. 0-4 years male RDT &amp; Microscopy_ | _(Pf., m 0-4)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- Pf. 15+ years female RDT &amp; Microscopy_ | _(Pf., f 15+)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- Pf. 15+ years male RDT &amp; Microscopy_ | _Pf., m 15+_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- Pf. 5-14 years female RDT &amp; Microscopy_ | _Pf., f 5-14_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- Pf. 5-14 years male RDT &amp; Microscopy_ | _Pf., m 5-14_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P.Falciparum (cases due to) RDT or Microscopy_ | _Pf. RDT or Microscopy_ | _Malaria cases caused by the species P. falciparum, detected either by RDT, microscopy or a molecular test_ | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PF&#39; &amp;&amp; (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; || #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- P.Knowlesi (Cases due to) Microscopy_ | _P.knowlesi case_ | _A malaria case caused by the species P. knowlesi detected by microscopy_ | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PK&#39;_ |
-| _MAL-CS- P Malariae. 0-4 years female Microscopy_ | _P Malariae., f 0-4_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P Malariae. 0-4 years male Microscopy_ | _P Malariae., m 0-4_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P Malariae. 15+ years female Microscopy_ | _P Malariae., f 15+_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P Malariae. 15+ years male Microscopy_ | _P Malariae., m 15+_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P Malariae. 5-14 years female Microscopy_ | _P Malariae, f 5-14_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P Malariae. 5-14 years male Microscopy_ | _P Malariae, m 5-14_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P.Malariae (cases due to)_ | _P.Malariae case_ | _Malaria cases caused by the species P. malariae_ | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39;_ |
-| _MAL-CS- P.Malariae (cases due to) Microscopy_ | _P.M Microscopy_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PM&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P O. 0-4 years female Microscopy_ | _P O., f 0-4_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P O. 0-4 years male Microscopy_ | _P O., m 0-4_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P O. 15+ years female Microscopy_ | _P O., f 15+_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P O. 15+ years male Microscopy_ | _P O., m 15+_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P O. 5-14 years female Microscopy_ | _(P O, f 5-14)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P O. 5-14 years male Microscopy_ | _P O, m 5-14_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- P.Ovale_ | _P.Ovale_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39;_ |
-| _MAL-CS- P.Ovale (Cases due to) Microscopy_ | _P O. Microscopy_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PO&#39; &amp;&amp; #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;_ |
-| _MAL-CS- Pregnant_ | _Pregnant_ | _Female cases_ | _A{sPDKWSQ2vKQ} == &#39;YES&#39;_ |
-| _MAL-CS- Proactive case detection_ | _Proactive case detection_ |
- | _#{hYyB7FUS5eR.fazCI2ygYkq} == &#39;PROACTIVE&#39;_ |
-| _MAL-CS- Pv. 0-4 years female RDT &amp; Microscopy_ | _microscopy (Pv., f 0-4)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;&amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39;&amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Pv. 0-4 years male RDT &amp; Microscopy_ | _microscopy (Pv., m 0-4)_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39; &amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Pv. 15+ years female RDT &amp; Microscopy_ | _Pv., f 15+ RDT &amp; Microscopy_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39; &amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Pv. 15+ years male RDT &amp; Microscopy_ | _Pv., m 15+ RDT &amp; Microscopy_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39; &amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Pv. 5-14 years female RDT &amp; Microscopy_ | _Pv., f 5-14 RDT &amp; Microscopy_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39; &amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- Pv. 5-14 years male RDT &amp; Microscopy_ | _(Pv., m 5-14) RDT &amp; Microscopy_ |
- | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; &amp;&amp; #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39; &amp;&amp;__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- P.vivax_ | _Pv_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39;_ |
-| _MAL-CS- P.vivax (cases due to) RDT &amp; microscopy_ | _Pv RDT &amp; microscopy_ |
- | _#{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;PV&#39; &amp;&amp; ( #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39; ||__#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;)_ |
-| _MAL-CS- RDT_ | _MAL-CS- RDT case_ | _The number of malaria cases tested by RDT with a positive result_ | _#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT 0-4 years female_ | _RDT (f 0-4)_ | _The number of suspected malaria cases tested by RDT with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT 0-4 years male_ | _RDT (m 0-4)_ | _The number of suspected malaria cases tested by RDT with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT 15+ years female_ | _RDT (f 15+)_ | _The number of suspected malaria cases tested by RDT with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT 15+ years male_ | _RDT (m 15+)_ | _The number of suspected malaria cases tested by RDT with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT 5-14 years female_ | _RDT (f 5-14)_ | _The number of suspected malaria cases tested by RDT with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT 5-14 years male_ | _RDT m 5-14_ | _The number of suspected malaria cases tested by RDT with a positive result_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; and #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39;_ |
-| _MAL-CS- RDT+Microscopy_ | _RDT+Microscopy_ | _Total malaria positives cases by Microscopy and RDT_ | _(#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT+Microscopy 0-4 years female_ | _RDT+Microscopy (f 0-4)_ | _Total malaria positives cases by Microscopy and RDT_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;FEMALE&#39; and (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT+Microscopy 0-4 years male_ | _RDT+Microscopy (m 0-4)_ | _Total malaria positives cases by Microscopy and RDT_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 5 and A{oindugucx72} == &#39;MALE&#39; and (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT+Microscopy 15+ years female_ | _RDT+Microscopy (f 15+)_ | _Total malaria positives cases by Microscopy and RDT_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;FEMALE&#39; and (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT+Microscopy 15+ years male_ | _RDT+Microscopy (m 15+)_ | _Total malaria positives cases by Microscopy and RDT_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 15 and A{oindugucx72} == &#39;MALE&#39; and (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT+Microscopy 5-14 years female_ | _RDT+Microscopy (f 5-14)_ | _Total malaria positives cases by Microscopy and RDT_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;FEMALE&#39; and (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT+Microscopy 5-14 years male_ | _RDT+Microscopy (m 5-14)_ | _Total malaria positives cases by Microscopy and RDT_ | _d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&gt;= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment\_date}) \&lt; 15 and A{oindugucx72} == &#39;MALE&#39; and (#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; or #{hYyB7FUS5eR.qdjVZojEK8S} == &#39;MICROSCOPY&#39;)_ |
-| _MAL-CS- RDT (other)_ | _RDT (other)_ |
- | _#{hYyB7FUS5eR.qdjVZojEK8S} == &#39;RDT&#39; and #{hYyB7FUS5eR.vGxpKVMkmaW} == &#39;OTHER&#39;_ |
-| _MAL-CS- Reactive case detection_ | _Reactive Case detection_ |
- | _#{hYyB7FUS5eR.fazCI2ygYkq} == &#39;REACTIVE&#39;_ |
-| _MAL-FOCI- Foci Classified_ | _Foci classified_ |
- | _(#{CWaAcQYKVpq.fjdU9F6EngS} == &#39;ACTIVE&#39; || #{CWaAcQYKVpq.fjdU9F6EngS} == &#39;RESIDUAL\_NON-ACTIVE&#39;|| #{CWaAcQYKVpq.fjdU9F6EngS} == &#39;CLEARED&#39;)_ |
-| _MAL-FOCI- Foci classified as active_ | _Foci active_ |
- | _(#{CWaAcQYKVpq.fjdU9F6EngS} == &#39;ACTIVE&#39; &amp;&amp; V{program\_stage\_id} == &#39;CWaAcQYKVpq&#39;)_ |
-| _MAL-FOCI- Foci classified as residual non-active_ | _Foci residual non-active_ |
- | _(#{CWaAcQYKVpq.fjdU9F6EngS} == &#39;RESIDUAL\_NON-ACTIVE&#39; &amp;&amp; V{program\_stage\_id} == &#39;CWaAcQYKVpq&#39;)_ |
-| _MAL-FOCI- Foci Identified_ | _Foci Identified_ | _Total number of foci in the registry in a one year period_ | _TRUE_ |
-| _MAL-FOCI- Foci investigated_ | _Foci investigations_ |
- | _(d2:hasValue(#{CWaAcQYKVpq.fjdU9F6EngS}) &amp;&amp; V{program\_stage\_id} ==&#39;CWaAcQYKVpq&#39;)_ |
-| _MAL-FOCI- Foci Reclassified_ | _Foci Reclassified_ | _Number of foci reclassified in a year_ | _d2:hasValue(#{CWaAcQYKVpq.fjdU9F6EngS}) &amp;&amp; d2:hasValue(#{CWaAcQYKVpq.V1OnhZYfSa2}) &amp;&amp; V{program\_stage\_id} == &#39;CWaAcQYKVpq&#39;_ |
-| _MAL-FOCI- Foci Registered_ | _Foci Registered_ | _Total number of foci in the registry_ | _TRUE_ |
-| _MAL-FOCI- Foci with response_ | _Foci with response_ | _Number of malaria foci that received any form of response_ | _V{program\_stage\_id} ==&#39;uvMKOn1oWvd&#39;_ |
+| pi_name | pi_shortname | pi_desc | pi_filter |
+|---|---|---|---|
+| Age 0-5 | Age 0-5 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=0 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<6 |
+| Age 16-26 | Age 16-26 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=16 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<27 |
+| Age 27-37 | Age 27-37 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=27 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<38 |
+| Age 38-49 | Age 38-49 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=38 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<50 |
+| Age 50-60 | Age 50-60 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=50 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<61 |
+| Age 6-16 | Age 6-16 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=6 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<16 |
+| Age 61-71 | Age 61-71 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=61 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<72 |
+| Age 72-82 | Age 72-82 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=72 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<83 |
+| Age 83-93 | Age 83-93 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=83 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<94 |
+| Age 94-104 | Age 94-104 |  | d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})>=94 && d2:yearsBetween(A{NI0QRzJvQ0k} , V{enrollment_date})<104 |
+| MAL-CS- Active case detection | Active Case detection | Detection by health workers of malaria cases at community and household levels, sometimes in population groups that are considered at high risk. Active case detection can consist of screening for fever followed by parasitological examination of all febrile patients or as parasitological examination of the target population without prior screening for fever. | #{hYyB7FUS5eR.fazCI2ygYkq} == 'PROACTIVE' \|\| #{hYyB7FUS5eR.fazCI2ygYkq} == 'REACTIVE' |
+| MAL-CS- Case investigated | Malaria Case investigated |  | d2:hasValue(#{wYTF0YCHMWr.fazCI2ygYkq}) |
+| MAL-CS- Cases classified | Malaria Cases classified | Number of cases classified as either indigenous, introduced, imported or induced | (#{eHvTba5ijAh.y3CG06h1Clh}=='IMPORTED'\|\| #{eHvTba5ijAh.y3CG06h1Clh}=='INTRODUCED'\|\|#{eHvTba5ijAh.y3CG06h1Clh}=='INDUCED'\|\|#{eHvTba5ijAh.y3CG06h1Clh} == 'INDIGENOUS'\|\|#{eHvTba5ijAh.y3CG06h1Clh} == 'RECRUDESCENT') && V{program_stage_id}=='eHvTba5ijAh' |
+| MAL-CS- Cases detected through PCD | Cases detected through PCD | Number of cases detected through Passive case detection | #{hYyB7FUS5eR.fazCI2ygYkq} == 'PASSIVE' |
+| MAL-CS- Cases diagnosed last 24 hours | Cases last 24 hours | Number of cases diagnosed in the previous 24 hours | d2:daysBetween(V{event_date},V{analytics_period_end}) == 0 && d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq}) |
+| MAL-CS- Cases due to mixed infection | Malaria cases mixed | A malaria infection caused by more than one species of plasmodium detected by RDT, microscopy or a molecular test | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'MIX' |
+| MAL-CS- Cases tested by microscopy | Case tested by microscopy | The number of suspected malaria cases tested by Microscopy | #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' && V{program_stage_id} == 'hYyB7FUS5eR' |
+| MAL-CS Confirmed cases investigated in N2 days (3 days) | Cases reported within 3 days | Number of confirmed (PCD) malaria cases investigated within (N2),the number of days after confirmation, defined in the national guideline | ((V{program_stage_id} == 'hYyB7FUS5eR' && d2:daysBetween(V{enrollment_date},V{event_date}) <4) && d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq}) ) && #{hYyB7FUS5eR.fazCI2ygYkq} == 'PASSIVE' |
+| MAL-CS- Confirmed cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility | Cases tested with microscopy or RDT in 24h | N: Number of confirmed cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility | V{program_stage_id} == 'hYyB7FUS5eR' && d2:daysBetween(V{event_date},#{hYyB7FUS5eR.fPbtS7glDT2}) <2 && (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' \|\| #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- Confirmed malaria cases | Confirmed malaria cases | A case due to mosquito-borne transmission and is acquired outside the area in which it was detected, in a known malarious area to or from which the patient has travelled outside the elimination area | d2:hasValue(#{hYyB7FUS5eR.qdjVZojEK8S}) && V{program_stage_id}=='hYyB7FUS5eR' |
+| MAL CS- Confirmed malaria cases investigated within N2 days | Confirmed malaria cases investigated in N2 days | Number of confirmed malaria cases investigated within (N2),the number of days after confirmation, defined in the national guideline (3 days) | d2:daysBetween(V{event_date},#{wYTF0YCHMWr.ObiXORrILyV}) < 4 |
+| MAL-CS- Confirmed with a known species | Confirmed with known species |  | d2:hasValue(#{hYyB7FUS5eR.vGxpKVMkmaW}) |
+| MAL-CS- Female | Female | Female cases | A{oindugucx72} == 'FEMALE' |
+| MAL-CS- Foci investigated within N3 days of diagnosis | Foci investigated within N3 days of diagnosis |  | d2:daysBetween(#{KwrBvn1EJT3.ObiXORrILyV},V{event_date}) <= 3 |
+| MAL-CS- Foci with response within N7 days of diagnosis | Foci with response within N7 days of diagnosis | N: Number of case notifications received within N1 (24h) of diagnosis | (V{program_stage_id} == 'KwrBvn1EJT3' && d2:hasValue(#{KwrBvn1EJT3.ObiXORrILyV}) && d2:hasValue(#{KwrBvn1EJT3.G7f2D1vl3fD}) && d2:daysBetween(#{KwrBvn1EJT3.ObiXORrILyV},#{KwrBvn1EJT3.G7f2D1vl3fD}) <= 7) |
+| MAL-CS- Imported | Imported malaria cases | Confirmed malaria cases classified as imported. A case due to mosquito-borne transmission and is acquired outside the area in which it was detected, in a known malarious area to or from which the patient has travelled outside the elimination area | #{wYTF0YCHMWr.bcGuRgKDZei} == 'IMPORTED' |
+| MAL-CS- Indigenous (Local) | Indigenous malaria cases | Confirmed malaria cases classified as indigenous - A case contracted locally with no evidence of importation and no direct link to transmission from an imported case | #{eHvTba5ijAh.y3CG06h1Clh}== 'INDIGENOUS' \|\| #{eHvTba5ijAh.y3CG06h1Clh} == 'INTRODUCED' |
+| MAL-CS- Induced | Induced | Cases not due to mosquito-borne transmission e.g blood transfusion or congenital malaria | #{wYTF0YCHMWr.bcGuRgKDZei} == 'INDUCED' |
+| MAL-CS- inpatient | MAL-CS- inpatient case |  | #{hYyB7FUS5eR.MKMyvXshCdB}== 'ADMITTED' |
+| MAL-CS- inpatient deaths | inpatient deaths |  | #{eHvTba5ijAh.MKMyvXshCdB} == 'ADMITTED' && #{eHvTba5ijAh.zXNfOKXRBA9} == 'DIED' |
+| MAL-CS- Introduced | Introduced | Confirmed malaria cases classified as introduced. A case contracted locally, with strong epidemiological evidence linking it directly to a known imported case (first-generation local transmission). First-generation local transmission; epidemiologically linked to proven imported case | #{wYTF0YCHMWr.bcGuRgKDZei} == 'INTRODUCED' |
+| MAL-CS- Malaria age current (months) | Malaria age current (months) |  | d2:yearsBetween(A{NI0QRzJvQ0k},V{current_date})<1 |
+| MAL-CS Malaria age current (years) | Malaria age current (years) |  | d2:yearsBetween(A{NI0QRzJvQ0k},V{current_date}) > 0 |
+| MAL-CS- Malaria cases (All registered) | All Malaria Cases |  | TRUE |
+| MAL-CS- Malaria death | Malaria death |  | #{eHvTba5ijAh.zXNfOKXRBA9} == 'DIED' && V{program_stage_id} == 'eHvTba5ijAh' |
+| MAL-CS- Malaria test - RDT | Malaria test - RDT | The number of suspected malaria cases tested by RDT | #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Male | Male |  | A{oindugucx72} == 'MALE' |
+| MAL-CS- microscopy 0-4 years female | microscopy (f 0-4) | The number of suspected malaria cases tested by Microscopy with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- microscopy 0-4 years male | microscopy (m 0-4) | The number of suspected malaria cases tested by Microscopy with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- microscopy 15+ years female | microscopy (f 15+) | The number of suspected malaria cases tested by Microscopy with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- microscopy 15+ years male | microscopy (m 15+) | The number of suspected malaria cases tested by Microscopy with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- microscopy 5-14 years female | microscopy (f 5-14) | The number of suspected malaria cases tested by Microscopy with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- microscopy 5-14 years male | microscopy (m 5-14) | The number of suspected malaria cases tested by Microscopy with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- microscopy (other) | mic (other) |  | #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'OTHER' |
+| MAL-CS- microscopy Pf. | microscopy Pf. |  | #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- microscopy Pf. 0-4 years female | microscopy (Pf., f 0-4) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE'and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- microscopy Pf. 0-4 years male | microscopy (Pf., m 0-4) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE'and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- microscopy Pf. 15+ years female | microscopy (Pf., f 15+) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE'and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- microscopy Pf. 15+ years male | microscopy (Pf., m 15+) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE'and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- microscopy Pf. 5-14 years female | microscopy (Pf., f 5-14) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE'and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- microscopy Pf. 5-14 years male | microscopy (Pf., m 5-14) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE'and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' |
+| MAL-CS- Mixed | Mixed |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'MIX' |
+| MAL-CS- Mixed RDT | Mixed RDT |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'MIX' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Nationality: BY COUNTRY | NATIONALITY: BY COUNTRY | One PI per country based on attribute "Nationality" | A{spkM2E9dn2J} == 'AF' |
+| MAL-CS- Newly diagnosed | Newly diagnosed | Number of newly diagnosed malaria cases during a defined period in a specified population | d2:daysBetween(V{enrollment_date}, V{analytics_period_start}) > 0 && d2:daysBetween(V{enrollment_date}, V{analytics_period_end}) < 0 |
+| MAL-CS- Notification received within N1 (24 hs) of diagnosis | Cases notified within 24hs | N: Number of case notifications received within N1 (24h) of diagnosis | (V{program_stage_id} == 'hYyB7FUS5eR' && d2:daysBetween(V{event_date},#{hYyB7FUS5eR.fPbtS7glDT2}) < 2 && d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq}) && d2:hasValue(#{hYyB7FUS5eR.qdjVZojEK8S}) ) |
+| MAL-CS- Not pregnant | Not pregnant | Not pregnant female cases | A{oindugucx72} == 'FEMALE' && (A{sPDKWSQ2vKQ}== 'NO' \|\| A{sPDKWSQ2vKQ}== '') |
+| MAL-CS- Number of confirmed Malaria Cases investigated (PCD) | Confirmed cases investigated (PCD) | Number of positive cases detected through PCD and investigated | #{wYTF0YCHMWr.fazCI2ygYkq} == 'PASSIVE' |
+| MAL-CS- Occupation Farmer | Occupation Farmer | Occupation Farmer | A{ZZmkcCkzzWr} == 'FARMER' |
+| MAL-CS- Occupation Migrant worker | Occupation Migrant worker | Occupation Migrant worker | A{ZZmkcCkzzWr} == 'MIGRANTWORKER' |
+| MAL-CS- Occupation Mine Worker | Occupation Mine Worker | Occupation Mine worker | A{ZZmkcCkzzWr} == 'MINEWORKER' |
+| MAL-CS- Occupation Nurse | Occupation Nurse | Occupation Nurse | A{ZZmkcCkzzWr} == 'NURSE' |
+| MAL-CS- Occupation Seasonal worker | Occupation Seasonal worker | Occupation Seasonal worker | A{ZZmkcCkzzWr} == 'SEASONALWORKER' |
+| MAL-CS- Occupation Student | Occupation Student | Occupation Student | A{ZZmkcCkzzWr} == 'STUDENT' |
+| MAL-CS- Occupation Teacher | Occupation Teacher | Occupation Teacher | A{ZZmkcCkzzWr} == 'TEACHER' |
+| MAL-CS- Occupation Truck driver | Occupation Truck driver | Occupation Truck driver | A{ZZmkcCkzzWr} == 'TRUCKDRIVER' |
+| MAL-CS- Other Species (Cases due to) | MAL-CS- Other Species |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'OTHER' |
+| MAL-CS- outpatient | outpatient |  | #{hYyB7FUS5eR.MKMyvXshCdB} == 'ADMITTED' |
+| MAL-CS- Passive case detection | Passive Case detection | Detection by health workers of malaria cases at community and household levels, sometimes in population groups that are considered at high risk. Active case detection can consist of screening for fever followed by parasitological examination of all febrile patients or as parasitological examination of the target population without prior screening for fever. | #{hYyB7FUS5eR.fazCI2ygYkq} == 'PASSIVE' |
+| MAL-CS- Pf. 0-4 years female RDT & Microscopy | Pf., f 0-4 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- Pf. 0-4 years male RDT & Microscopy | (Pf., m 0-4) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- Pf. 15+ years female RDT & Microscopy | (Pf., f 15+) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- Pf. 15+ years male RDT & Microscopy | Pf., m 15+ |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- Pf. 5-14 years female RDT & Microscopy | Pf., f 5-14 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- Pf. 5-14 years male RDT & Microscopy | Pf., m 5-14 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P.Falciparum (cases due to) RDT or Microscopy | Pf. RDT or Microscopy | Malaria cases caused by the species P. falciparum, detected either by RDT, microscopy or a molecular test | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PF' && (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' \|\| #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- P.Knowlesi (Cases due to) Microscopy | P.knowlesi case | A malaria case caused by the species P. knowlesi detected by microscopy | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PK' |
+| MAL-CS- P Malariae. 0-4 years female Microscopy | P Malariae., f 0-4 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P Malariae. 0-4 years male Microscopy | P Malariae., m 0-4 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P Malariae. 15+ years female Microscopy | P Malariae., f 15+ |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P Malariae. 15+ years male Microscopy | P Malariae., m 15+ |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P Malariae. 5-14 years female Microscopy | P Malariae, f 5-14 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P Malariae. 5-14 years male Microscopy | P Malariae, m 5-14 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P.Malariae (cases due to) | P.Malariae case | Malaria cases caused by the species P. malariae | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' |
+| MAL-CS- P.Malariae (cases due to) Microscopy | P.M Microscopy |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PM' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P O. 0-4 years female Microscopy | P O., f 0-4 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P O. 0-4 years male Microscopy | P O., m 0-4 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P O. 15+ years female Microscopy | P O., f 15+ |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P O. 15+ years male Microscopy | P O., m 15+ |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P O. 5-14 years female Microscopy | (P O, f 5-14) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P O. 5-14 years male Microscopy | P O, m 5-14 |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- P.Ovale | P.Ovale |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' |
+| MAL-CS- P.Ovale (Cases due to) Microscopy | P O. Microscopy |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PO' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' |
+| MAL-CS- Pregnant | Pregnant | Female cases | A{sPDKWSQ2vKQ} == 'YES' |
+| MAL-CS- Proactive case detection | Proactive case detection |  | #{hYyB7FUS5eR.fazCI2ygYkq} == 'PROACTIVE' |
+| MAL-CS- Pv. 0-4 years female RDT & Microscopy | microscopy (Pv., f 0-4) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY'&& #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV'&& #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Pv. 0-4 years male RDT & Microscopy | microscopy (Pv., m 0-4) |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Pv. 15+ years female RDT & Microscopy | Pv., f 15+ RDT & Microscopy |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Pv. 15+ years male RDT & Microscopy | Pv., m 15+ RDT & Microscopy |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Pv. 5-14 years female RDT & Microscopy | Pv., f 5-14 RDT & Microscopy |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- Pv. 5-14 years male RDT & Microscopy | (Pv., m 5-14) RDT & Microscopy |  | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' && #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' && #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- P.vivax | Pv |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' |
+| MAL-CS- P.vivax (cases due to) RDT & microscopy | Pv RDT & microscopy |  | #{hYyB7FUS5eR.vGxpKVMkmaW} == 'PV' && ( #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY' \|\| #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT') |
+| MAL-CS- RDT | MAL-CS- RDT case | The number of malaria cases tested by RDT with a positive result | #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT 0-4 years female | RDT (f 0-4) | The number of suspected malaria cases tested by RDT with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT 0-4 years male | RDT (m 0-4) | The number of suspected malaria cases tested by RDT with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT 15+ years female | RDT (f 15+) | The number of suspected malaria cases tested by RDT with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT 15+ years male | RDT (m 15+) | The number of suspected malaria cases tested by RDT with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT 5-14 years female | RDT (f 5-14) | The number of suspected malaria cases tested by RDT with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT 5-14 years male | RDT m 5-14 | The number of suspected malaria cases tested by RDT with a positive result | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' and #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' |
+| MAL-CS- RDT+Microscopy | RDT+Microscopy | Total malaria positives cases by Microscopy and RDT | (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT+Microscopy 0-4 years female | RDT+Microscopy (f 0-4) | Total malaria positives cases by Microscopy and RDT | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'FEMALE' and (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT+Microscopy 0-4 years male | RDT+Microscopy (m 0-4) | Total malaria positives cases by Microscopy and RDT | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 0 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 5 and A{oindugucx72} == 'MALE' and (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT+Microscopy 15+ years female | RDT+Microscopy (f 15+) | Total malaria positives cases by Microscopy and RDT | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'FEMALE' and (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT+Microscopy 15+ years male | RDT+Microscopy (m 15+) | Total malaria positives cases by Microscopy and RDT | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 15 and A{oindugucx72} == 'MALE' and (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT+Microscopy 5-14 years female | RDT+Microscopy (f 5-14) | Total malaria positives cases by Microscopy and RDT | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'FEMALE' and (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT+Microscopy 5-14 years male | RDT+Microscopy (m 5-14) | Total malaria positives cases by Microscopy and RDT | d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) >= 5 and d2:yearsBetween(A{NI0QRzJvQ0k}, V{enrollment_date}) < 15 and A{oindugucx72} == 'MALE' and (#{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' or #{hYyB7FUS5eR.qdjVZojEK8S} == 'MICROSCOPY') |
+| MAL-CS- RDT (other) | RDT (other) |  | #{hYyB7FUS5eR.qdjVZojEK8S} == 'RDT' and #{hYyB7FUS5eR.vGxpKVMkmaW} == 'OTHER' |
+| MAL-CS- Reactive case detection | Reactive Case detection |  | #{hYyB7FUS5eR.fazCI2ygYkq} == 'REACTIVE' |
+| MAL-FOCI- Foci Classified | Foci classified |  | (#{CWaAcQYKVpq.fjdU9F6EngS} == 'ACTIVE' \|\| #{CWaAcQYKVpq.fjdU9F6EngS} == 'RESIDUAL_NON-ACTIVE'\|\| #{CWaAcQYKVpq.fjdU9F6EngS} == 'CLEARED') |
+| MAL-FOCI- Foci classified as active | Foci active |  | (#{CWaAcQYKVpq.fjdU9F6EngS} == 'ACTIVE' && V{program_stage_id} == 'CWaAcQYKVpq') |
+| MAL-FOCI- Foci classified as residual non-active | Foci residual non-active |  | (#{CWaAcQYKVpq.fjdU9F6EngS} == 'RESIDUAL_NON-ACTIVE' && V{program_stage_id} == 'CWaAcQYKVpq') |
+| MAL-FOCI- Foci Identified | Foci Identified | Total number of foci in the registry in a one year period | TRUE |
+| MAL-FOCI- Foci investigated | Foci investigations |  | (d2:hasValue(#{CWaAcQYKVpq.fjdU9F6EngS}) && V{program_stage_id} =='CWaAcQYKVpq') |
+| MAL-FOCI- Foci Reclassified | Foci Reclassified | Number of foci reclassified in a year | d2:hasValue(#{CWaAcQYKVpq.fjdU9F6EngS}) && d2:hasValue(#{CWaAcQYKVpq.V1OnhZYfSa2}) && V{program_stage_id} == 'CWaAcQYKVpq' |
+| MAL-FOCI- Foci Registered | Foci Registered | Total number of foci in the registry | TRUE |
+| MAL-FOCI- Foci with response | Foci with response | Number of malaria foci that received any form of response | V{program_stage_id} =='uvMKOn1oWvd' |
 
 6.2 Indicators
 
-| **Indicator name** | **Numerator description** | **Denominator description** |
-| --- | --- | --- |
-| MAL-CS- Case reports received \&lt; 24 h after detection % | Number of case notifications received within 24h of diagnosis | Total number of confirmed malaria case reports |
+| Indicator name | Numerator description | Denominator description |
+|---|---|---|
+| MAL-CS- Case reports received < 24 h after detection % | Number of case notifications received within 24h of diagnosis | Total number of confirmed malaria case reports  |
 | MAL-CS- Cases diagnosed with Microscopy (%) | Malaria cases diagnosed by RDT | Total confirmed Malaria cases with a known species |
 | MAL-CS- Cases diagnosed with RDT (%) | Malaria cases diagnosed by RDT | Total confirmed Malaria cases with a known species |
-| MAL-CS- Cases investigated (%) | Number of cases investigated | Number of positive cases detected through PCD |
+| MAL-CS- Cases investigated (%) | Number of cases investigated | Number of positive cases detected through PCD  |
 | MAL-CS- Cases investigated on time (%) | sum of cases with enrollment date within 3 days from date of diagnosis | Total confirmed cases reported |
 | MAL-CS- Cases notified on time (%) | sum of cases enrollment date within 1 day from date of diagnosis | Total confirmed cases reported |
 | MAL-CS- Cases notified within N1 days (24 hs) (%) | Number of cases within the time limit specified by national guidelines for time from diagnosis to notification (typically within 24 hrs) | Total number of confirmed malaria cases reported through PCD |
 | MAL-CS- Confirmed cases classified (%) | Number of positive cases classified | Number of positive cases detected through PCD and investigated x100 |
-| MAL-CS- Confirmed cases investigated (%) | Number of positive cases detected through PCD and investigated | Number of positive cases detected through PCD |
-| MAL-CS- Confirmed cases with symptoms diagnosed within 24 hours (%) | N: Number of confirmed cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility | Total number of confirmed malaria cases reported through PCD |
+| MAL-CS- Confirmed cases investigated (%) | Number of positive cases detected through PCD and investigated | Number of positive cases detected through PCD  |
+| MAL-CS- Confirmed cases with symptoms diagnosed within 24 hours (%) | N: Number of confirmed  cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility | Total number of confirmed malaria cases reported through PCD |
 | MAL-CS- Female cases (%) | Malaria female cases | Total confirmed Malaria cases with a known species |
 | MAL-CS- Foci investigated within N3 days of diagnosis (%) | Confirmed Malaria Cases | Foci investigated within N3 days of diagnosis |
 | MAL-CS- Foci with response within N7 days of diagnosis (%) | N7 | Confirmed Malaria Cases |
@@ -810,7 +717,7 @@ _d2:hasValue(#{hYyB7FUS5eR.fazCI2ygYkq}) ) &amp;&amp; #{hYyB7FUS5eR.fazCI2ygYkq}
 | MAL-CS- Malaria Case Occupation: Student (%) | Malaria Student | Total confirmed Malaria cases with a known species |
 | MAL-CS- Malaria Case Occupation: Teacher (%) | Malaria Student | Total confirmed Malaria cases with a known species |
 | MAL-CS- Malaria Case Occupation: Truck Driver (%) | Malaria Student | Total confirmed Malaria cases with a known species |
-| MAL-CS- Male cases (%) | Malaria male cases | Total confirmed Malaria cases |
+| MAL-CS- Male cases (%) | Malaria male cases | Total confirmed Malaria cases  |
 | MAL-CS- Mixed infection cases (%) | Malaria cases due to P.vivax identified by RDT or microscopy | Total confirmed Malaria cases with a known species |
 | MAL-CS- P.falciparum cases (%) | Malaria cases due to P.Falciparum | Total confirmed Malaria cases with a known species |
 | MAL-CS- P.vivax cases (%) | Malaria cases due to mixed infection | Total confirmed Malaria cases with a known species |
