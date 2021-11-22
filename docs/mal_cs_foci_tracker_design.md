@@ -366,15 +366,12 @@ And finally, the vector control intervention section records intervations undert
 
 In the foci enrollment there are only four attributes in addition to the date of registration.
 
-| **Name** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- |
-| Date of Foci Registration | M3xtLkYBlKI | DATE |
- | **YES** |
-| Malaria foci investigation Focus Name | Kv4fmHVAzwX | TEXT |
- | NO |
-| Malaria foci investigation Locality | phxAY4PQdsT | TEXT | URBANRURAL | NO |
-| Malaria foci investigation Focus ID | K9innmM1nuW | TEXT |
- | NO |
+|| Name | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|
+| Date of Foci Registration | M3xtLkYBlKI | DATE |  | YES |
+| Malaria foci investigation Focus Name | Kv4fmHVAzwX | TEXT |  | NO |
+| Malaria foci investigation Locality | phxAY4PQdsT | TEXT | URBAN RURAL | NO |
+| Malaria foci investigation Focus ID | K9innmM1nuW | TEXT |  | NO |
 | Malaria foci investigation Focus Definition | cnXnFAStrrd | TEXT | VILLAGEFOCUS DISTRICTFOCUS REGIONFOCUS | NO |
 
 ### 4.2.2 Focus Status investigation and classification stage
@@ -383,106 +380,70 @@ This is a repeatable stage where the details of the focus investigation are reco
 
 The first section is hidden through programme rules if there have not been any interventions or investigations previously. If there have, then the section is displayed and most of these data elements are automatically completed based on the values from their other stages.
 
- It has a point feature which allows you to record coordinates as a point on the map to mark the location of the focus. The point could alternatively be configured as a &quot;polygon&quot; which would allow you to draw a shape on the map in order to delimit a perimeter for the focus.
+ It has a point feature which allows you to record coordinates as a point on the map to mark the location of the focus. The point could alternatively be configured as a "polygon", which would allow you to draw a shape on the map in order to delimit a perimeter for the focus.
 
-| **Stage** | **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- | --- |
-|
- | Feature | Point |
- | Coordinates |
- |
- |
-|
- | Feature | Date of foci investigation | CWaAcQYKVpq | DATE |
- | YES |
-|
- | Focus Status | - Date of classification | Ah29MGrnVjJ | DATE |
- | NO |
-|
- | Focus Status | - Classification | V1OnhZYfSa2 | TEXT | ACTIVE RESIDUAL_NON-ACTIVE CLEARED | NO |
-|
- | Focus Status | - Previous Vector Control Interventions - LLIN distribution | jhoCqSTA2QB | YES\_ONLY |
- | NO |
-|
- | Focus Status | - Previous Vector Control Intervention - INDOOR residual spraying | e6hRE1N1Fcc | YES\_ONLY |
- | NO |
-|
- | Focus Status | - Previous Vector Control Intervention - Larval Source management | dbMsAGvictz | YES\_ONLY |
- | NO |
+| Stage | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|  | Feature | Point |  | Coordinates |  |  |
+|  | Feature | Date of foci investigation | CWaAcQYKVpq | DATE |  | YES |
+|  | Focus Status | - Date of classification | Ah29MGrnVjJ | DATE |  | NO |
+|  | Focus Status | - Classification | V1OnhZYfSa2 | TEXT | ACTIVE RESIDUAL_NON-ACTIVE CLEARED | NO |
+|  | Focus Status | - Previous Vector Control Interventions - LLIN distribution | jhoCqSTA2QB | YES_ONLY |  | NO |
+|  | Focus Status | - Previous Vector Control Intervention - INDOOR residual spraying | e6hRE1N1Fcc | YES_ONLY |  | NO |
+|  | Focus Status | - Previous Vector Control Intervention - Larval Source management | dbMsAGvictz | YES_ONLY |  | NO |
 
 The Foci investigation section is where the bulk of the work happens.
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Foci Investigation | - Total Population in the Focus | HDRons6AfbL | INTEGER\_POSITIVE |
- | NO |
-| Foci Investigation | - Malaria Households | VNM6zoPECqd | INTEGER\_POSITIVE |
- | NO |
-| Foci Investigation | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |
- | NO |
-| Foci Investigation | MAL- Migrant | BK2d3ktuJWa | YES_ONLY |
- | NO |
-| Foci Investigation | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |
- | NO |
-| Foci Investigation | MAL- Refugee | HUzRTYRFcYn | YES_ONLY |
- | NO |
-| Foci Investigation | - Type of Population - Other | QZZA5IfHAAU | YES_ONLY |
- | NO |
-| Foci Investigation | - Type of Population - Specify Other | ehBd9cR5bq4 | TEXT | Only shown if other is selected | NO |
-| Foci Investigation | - Geographical features | SaHE38QFFwZ | TEXT | HILLY PLATEAU HILLY_AND_PLATEAU | NO |
-| Foci Investigation | - Development activity present | Tj642rK34Qf | YES\_ONLY |
- | NO |
-| Foci Investigation | - Development activity type | jzksn7lA2ac | TEXT | Only shown if yes is selected previously
- --
- AGRICULTURE CONSTRUCTION MINING PLANTATION OTHER | NO |
-| Foci Investigation | - Development activity other specify | gd8U1R3ALDA | TEXT | Only shown if other is selected | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Foci Investigation | - Total Population in the Focus | HDRons6AfbL | INTEGER_POSITIVE |  | NO |  |
+| Foci Investigation | - Malaria Households | VNM6zoPECqd | INTEGER_POSITIVE |  | NO | YES |
+| Foci Investigation | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |  | NO | NO |
+| Foci Investigation | MAL- Migrant | BK2d3ktuJWa | YES_ONLY |  | NO | NO |
+| Foci Investigation | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |  | NO | NO |
+| Foci Investigation | MAL- Refugee | HUzRTYRFcYn | YES_ONLY |  | NO | NO |
+| Foci Investigation | - Type of Population - Other | QZZA5IfHAAU | YES_ONLY |  | NO | NO |
+| Foci Investigation | - Type of Population - Specify Other | ehBd9cR5bq4 | TEXT | Only shown if other is selected | NO |  |
+| Foci Investigation | - Geographical features | SaHE38QFFwZ | TEXT | HILLY PLATUE HILLY_AND_PLATUE | NO |  |
+| Foci Investigation | - Development activity present | Tj642rK34Qf | YES_ONLY |  | NO |  |
+| Foci Investigation | - Development activity type | jzksn7lA2ac | TEXT | Only shown if yes is selected previously--AGRICULTURE CONSTRUCTION MINING PLANTATION OTHER | NO |  |
+| Foci Investigation | - Development activity other specify | gd8U1R3ALDA | TEXT | Only shown if other is selected | NO |  |
 
 The vector behaviour section deals with the resting and biting behaviour of the mosquitoes in the area.
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | Vector Behaviour | - Biting Behaviour | PxKiOhLn7mV | TEXT | INDOORBITING OUTDOORBITING | NO |
 | Vector Behaviour | - Resting Behaviour | X1DpyS5FN3T | TEXT | INDOOR OUTDOOR | NO |
 
 The Insecticide resistance section registers if there is insecticide resistance in the area and to which insecticide.
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Insecticide Resistance | - Malaria Proven insecticide resistance | fyjPqlHE7Dn | BOOLEAN |
- | NO |
-| Insecticide Resistance | - Malaria Insecticide Name | UFTvUJIMiH0 | TEXT | Only appears if YES is previously selected.
-
- BENDIOCARB01 CARBOSULFAN04 DDT4 DIELDRIN4 MALATHION5 PIRIMPHOS025 DELTAMETHRIN005 | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Insecticide Resistance | - Malaria Proven insecticide resistance | fyjPqlHE7Dn | BOOLEAN |  | NO |
+| Insecticide Resistance | - Malaria Insecticide Name | UFTvUJIMiH0 | TEXT | Only appears if YES is previously selected.BENDIOCARB01 CARBOSULFAN04 DDT4 DIELDRIN4 MALATHION5 PIRIMPHOS025 DELTAMETHRIN005 | NO |
 
 The classification section lets the health worker register the focus status and how it is classified based on the evidence gathered. For the next investigation, this value will be available in the data elements at the beginning of the form.
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | Classification | - Focus final classification | fjdU9F6EngS | TEXT | ACTIVE RESIDUAL_NON-ACTIVE CLEARED | YES |
-| Classification | - Focus date of classification | bl7EMKxJIIT | DATE |
- | YES |
-| Classification | - Additional Information Evidence | PILB3GtIwiJ | TEXT |
- | NO |
+| Classification | - Focus date of classification | bl7EMKxJIIT | DATE |  | YES |
+| Classification | - Additional Information Evidence | PILB3GtIwiJ | TEXT |  | NO |
 
 ### 4.2.3 Foci Response stage
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Foci Response | Date of foci response | uvMKOn1oWvd | DATE |
- | YES |
-| Foci Response | - Households included | k0rev4WSffi | INTEGER_POSITIVE |
- | NO |
-| Foci Response | - People included | DX4LVYeP7bw | INTEGER_POSITIVE |
- | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Foci Response | Date of foci response | uvMKOn1oWvd | DATE |  | YES |
+| Foci Response | - Households included | k0rev4WSffi | INTEGER_POSITIVE |  | NO |
+| Foci Response | - People included | DX4LVYeP7bw | INTEGER_POSITIVE |  | NO |
 
-| **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
-| --- | --- | --- | --- | --- | --- |
-| Vector Control | MAL- Follow-up Vector Control Intervention - LLIN Distribution | JhpYDsTUfi2 | YES\_ONLY |
- | NO |
-| Vector Control | MAL- Follow-up Vector Control Intervention - INDOOR Residual Spraying | yhX7ljWZV9q | YES\_ONLY |
- | NO |
-| Vector Control | - Follow-up Vector Control Intervention - Larval Source Management | c2c62aRFIfr | YES\_ONLY |
- | NO |
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Vector Control | MAL- Follow-up Vector Control Intervention - LLIN Distribution | JhpYDsTUfi2 | YES_ONLY |  | NO |
+| Vector Control | MAL- Follow-up Vector Control Intervention - INDOOR Residual Spraying | yhX7ljWZV9q | YES_ONLY |  | NO |
+| Vector Control | - Follow-up Vector Control Intervention - Larval Source Management | c2c62aRFIfr | YES_ONLY |  | NO |
 
 ## Validation rules / Program rules
 
