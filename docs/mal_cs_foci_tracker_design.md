@@ -170,7 +170,7 @@ In the enrollment stage, each case is registered and assigned a System case ID a
 | Pregnancy Status | sPDKWSQ2vKQ | TEXT |
  Only visible if Female of reproductive age /
  YESNO | NO |
-| Malaria - Occupation | ZZmkcCkzzWr | TEXT | NURSESTUDENTTEACHERTRUCKDRIVERMINEWORKERSEASONALWORKERMIGRANTWORKERFARMER | NO |
+| Malaria - Occupation | ZZmkcCkzzWr | TEXT | NURSE STUDENT TEACHER TRUCKDRIVER MINEWORKER SEASONALWORKER MIGRANTWORKER FARMER | NO |
 | Present Home Address | CpDhdm55uhl | TEXT |
  | NO |
 | Address (permanent) | XN0145qZ7kH | TEXT |
@@ -280,32 +280,32 @@ The index case household investigation implies the investigation of the physical
 | Index case household investigation and response | Name of head of household | SlqoeFUJvUV | TEXT |
  | NO |
 | --- | --- | --- | --- | --- | --- |
-| Index case household investigation and response | Number of household members | lezQpdvvGjY | INTEGER\_ZERO\_OR\_POSITIVE |
+| Index case household investigation and response | Number of household members | lezQpdvvGjY | INTEGER ZERO OR POSITIVE |
  | NO |
-| Index case household investigation and response | Household members tested for malaria | y57kkdyw35d | INTEGER\_ZERO\_OR\_POSITIVE |
+| Index case household investigation and response | Household members tested for malaria | y57kkdyw35d | INTEGER ZERO OR POSITIVE |
  | NO |
-| Index case household investigation and response | Household members malaria positive | qxWAgIAfZAh | INTEGER\_ZERO\_OR\_POSITIVE |
+| Index case household investigation and response | Household members malaria positive | qxWAgIAfZAh | INTEGER ZERO OR POSITIVE |
  | NO |
-| Index case household investigation and response | Sleeping places | QtZBHQORAvK | INTEGER\_ZERO\_OR\_POSITIVE |
+| Index case household investigation and response | Sleeping places | QtZBHQORAvK | INTEGER ZERO OR POSITIVE |
  | NO |
-| Index case household investigation and response | Household members own net | uPNwmZl8Clb | INTEGER\_ZERO\_OR\_POSITIVE |
+| Index case household investigation and response | Household members own net | uPNwmZl8Clb | INTEGER ZERO OR POSITIVE |
  | NO |
 | Index case household investigation and response | Residents in household who slept under a net the previous night | KA6RY4BB41F | INTEGER |
  | YES |
 | Index case household investigation and response | Household sprayed in the past 12 months | AeVEKN0zwJJ | BOOLEAN |
  | YES |
-| Index case household investigation and response | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | YES\_ONLY |
+| Index case household investigation and response | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | YES_ONLY |
  | NO |
-| Index case household investigation and response | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | YES\_ONLY |
+| Index case household investigation and response | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | YES_ONLY |
  | NO |
-| Index case household investigation and response | Vector Control Intervention - Larval Source Management | wwIvEJUmxx8 | YES\_ONLY |
+| Index case household investigation and response | Vector Control Intervention - Larval Source Management | wwIvEJUmxx8 | YES_ONLY |
  | NO |
 
 _The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule and both data elements are automatically populated. The two different data elements are automatically filled with data from the diagnosis stage using programme rules._
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
 | --- | --- | --- | --- | --- | --- |
-| Hidden section for indicator purposes (Investigation) | Detection setting | fazCI2ygYkq | TEXT | PASSIVEREACTIVEPROACTIVE | NO |
+| Hidden section for indicator purposes (Investigation) | Detection setting | fazCI2ygYkq | TEXT | PASSIVE REACTIVE PROACTIVE | NO |
 | Hidden section for indicator purposes (Investigation) | Diagnosis date | ObiXORrILyV | DATE |
  | NO |
 
@@ -319,15 +319,15 @@ _This stage records the data for the investigations done in the households in th
  | YES |
 | Nearby household investigation | Name of head of household | SlqoeFUJvUV | TEXT |
  | NO |
-| Nearby household investigation | Number of household members | lezQpdvvGjY | INTEGER\_ZERO\_OR\_POSITIVE |
+| Nearby household investigation | Number of household members | lezQpdvvGjY | INTEGER ZERO OR POSITIVE |
  | NO |
-| Nearby household investigation | Household members tested for malaria | y57kkdyw35d | INTEGER\_ZERO\_OR\_POSITIVE |
+| Nearby household investigation | Household members tested for malaria | y57kkdyw35d | INTEGER ZERO OR POSITIVE |
  | NO |
-| Nearby household investigation | Household members malaria positive | qxWAgIAfZAh | INTEGER\_ZERO\_OR\_POSITIVE |
+| Nearby household investigation | Household members malaria positive | qxWAgIAfZAh | INTEGER ZERO OR POSITIVE |
  | NO |
-| Nearby household investigation | Sleeping places | QtZBHQORAvK | INTEGER\_ZERO\_OR\_POSITIVE |
+| Nearby household investigation | Sleeping places | QtZBHQORAvK | INTEGER ZERO OR POSITIVE |
  | NO |
-| Nearby household investigation | Household members own net | uPNwmZl8Clb | INTEGER\_ZERO\_OR\_POSITIVE |
+| Nearby household investigation | Household members own net | uPNwmZl8Clb | INTEGER ZERO OR POSITIVE |
  | NO |
 | Nearby household investigation | Residents in household who slept under a net the previous night | KA6RY4BB41F | INTEGER |
  | NO |
@@ -345,8 +345,8 @@ _The case outcome records the end of the final case classification and the outco
 | Case outcome | Report date | eHvTba5ijAh | DATE |
  | **TRUE** |
 | --- | --- | --- | --- | --- | --- |
-| Case outcome | Malaria Final case classification | y3CG06h1Clh | TEXT | INDIGENOUSIMPORTEDINTRODUCEDRECRUDESCENTINDUCED | FALSE |
-| Case outcome | Outcome of illness | zXNfOKXRBA9 | TEXT | CUREDDIEDABSCONDED | **TRUE** |
+| Case outcome | Malaria Final case classification | y3CG06h1Clh | TEXT | INDIGENOUS IMPORTED INTRODUCED RECRUDESCENT INDUCED | FALSE |
+| Case outcome | Outcome of illness | zXNfOKXRBA9 | TEXT | CURED DIED ABSCONDED | **TRUE** |
 
 It also includes a hidden section with the data element &quot;Admission status&quot;, which is assigned automatically from the same data element present in the &quot;Diagnostic and Treatment&quot; Stage.
 
@@ -389,7 +389,7 @@ The response section gathers the date of response.
 | --- | --- | --- | --- | --- | --- |
 | Vector control interventions | MAL- Follow-up Vector Control Intervention - LLIN Distribution | JhpYDsTUfi2 | YES\_ONLY |
  | NO |
-| Vector control interventions | Bednet distributed | f623C5LloqV | INTEGER\_ZERO\_OR\_POSITIVE |
+| Vector control interventions | Bednet distributed | f623C5LloqV | INTEGER ZERO OR POSITIVE |
  | NO |
 | Vector control interventions | MAL- Follow-up Vector Control Intervention - Indoor Residual Spraying | yhX7ljWZV9q | YES\_ONLY |
  | NO |
@@ -417,7 +417,7 @@ In the foci enrollment there are only four attributes in addition to the date of
 | Malaria foci investigation Locality | phxAY4PQdsT | TEXT | URBANRURAL | NO |
 | Malaria foci investigation Focus ID | K9innmM1nuW | TEXT |
  | NO |
-| Malaria foci investigation Focus Definition | cnXnFAStrrd | TEXT | VILLAGEFOCUSDISTRICTFOCUSREGIONFOCUS | NO |
+| Malaria foci investigation Focus Definition | cnXnFAStrrd | TEXT | VILLAGEFOCUS DISTRICTFOCUS REGIONFOCUS | NO |
 
 ### 4.2.2 Focus Status investigation and classification stage
 
@@ -441,7 +441,7 @@ The first section is hidden through programme rules if there have not been any i
  | Focus Status | - Date of classification | Ah29MGrnVjJ | DATE |
  | NO |
 |
- | Focus Status | - Classification | V1OnhZYfSa2 | TEXT | ACTIVERESIDUAL\_NON-ACTIVECLEARED | NO |
+ | Focus Status | - Classification | V1OnhZYfSa2 | TEXT | ACTIVE RESIDUAL_NON-ACTIVE CLEARED | NO |
 |
  | Focus Status | - Previous Vector Control Interventions - LLIN distribution | jhoCqSTA2QB | YES\_ONLY |
  | NO |
@@ -460,31 +460,31 @@ The Foci investigation section is where the bulk of the work happens.
  | NO |
 | Foci Investigation | - Malaria Households | VNM6zoPECqd | INTEGER\_POSITIVE |
  | NO |
-| Foci Investigation | MAL- Resident | Cd5AUkJT1mE | YES\_ONLY |
+| Foci Investigation | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |
  | NO |
-| Foci Investigation | MAL- Migrant | BK2d3ktuJWa | YES\_ONLY |
+| Foci Investigation | MAL- Migrant | BK2d3ktuJWa | YES_ONLY |
  | NO |
-| Foci Investigation | MAL- Temporary worker | VJ7qLlRgm7e | YES\_ONLY |
+| Foci Investigation | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |
  | NO |
-| Foci Investigation | MAL- Refugee | HUzRTYRFcYn | YES\_ONLY |
+| Foci Investigation | MAL- Refugee | HUzRTYRFcYn | YES_ONLY |
  | NO |
-| Foci Investigation | - Type of Population - Other | QZZA5IfHAAU | YES\_ONLY |
+| Foci Investigation | - Type of Population - Other | QZZA5IfHAAU | YES_ONLY |
  | NO |
 | Foci Investigation | - Type of Population - Specify Other | ehBd9cR5bq4 | TEXT | Only shown if other is selected | NO |
-| Foci Investigation | - Geographical features | SaHE38QFFwZ | TEXT | HILLYPLATUEHILLY\_AND\_PLATUE | NO |
+| Foci Investigation | - Geographical features | SaHE38QFFwZ | TEXT | HILLY PLATEAU HILLY_AND_PLATEAU | NO |
 | Foci Investigation | - Development activity present | Tj642rK34Qf | YES\_ONLY |
  | NO |
 | Foci Investigation | - Development activity type | jzksn7lA2ac | TEXT | Only shown if yes is selected previously
  --
- AGRICULTURECONSTRUCTIONMININGPLANTATIONOTHER | NO |
+ AGRICULTURE CONSTRUCTION MINING PLANTATION OTHER | NO |
 | Foci Investigation | - Development activity other specify | gd8U1R3ALDA | TEXT | Only shown if other is selected | NO |
 
 The vector behaviour section deals with the resting and biting behaviour of the mosquitoes in the area.
 
 | **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
 | --- | --- | --- | --- | --- | --- |
-| Vector Behaviour | - Biting Behaviour | PxKiOhLn7mV | TEXT | INDOORBITINGOUTDOORBITING | NO |
-| Vector Behaviour | - Resting Behaviour | X1DpyS5FN3T | TEXT | INDOOROUTDOOR | NO |
+| Vector Behaviour | - Biting Behaviour | PxKiOhLn7mV | TEXT | INDOORBITING OUTDOORBITING | NO |
+| Vector Behaviour | - Resting Behaviour | X1DpyS5FN3T | TEXT | INDOOR OUTDOOR | NO |
 
 The Insecticide resistance section registers if there is insecticide resistance in the area and to which insecticide.
 
@@ -494,13 +494,13 @@ The Insecticide resistance section registers if there is insecticide resistance 
  | NO |
 | Insecticide Resistance | - Malaria Insecticide Name | UFTvUJIMiH0 | TEXT | Only appears if YES is previously selected.
 
- BENDIOCARB01CARBOSULFAN04DDT4DIELDRIN4MALATHION5PIRIMPHOS025DELTAMETHRIN005 | NO |
+ BENDIOCARB01 CARBOSULFAN04 DDT4 DIELDRIN4 MALATHION5 PIRIMPHOS025 DELTAMETHRIN005 | NO |
 
 The classification section lets the health worker register the focus status and how it is classified based on the evidence gathered. For the next investigation, this value will be available in the data elements at the beginning of the form.
 
 | **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
 | --- | --- | --- | --- | --- | --- |
-| Classification | - Focus final classification | fjdU9F6EngS | TEXT | ACTIVERESIDUAL\_NON-ACTIVECLEARED | YES |
+| Classification | - Focus final classification | fjdU9F6EngS | TEXT | ACTIVE RESIDUAL_NON-ACTIVE CLEARED | YES |
 | Classification | - Focus date of classification | bl7EMKxJIIT | DATE |
  | YES |
 | Classification | - Additional Information Evidence | PILB3GtIwiJ | TEXT |
@@ -512,9 +512,9 @@ The classification section lets the health worker register the focus status and 
 | --- | --- | --- | --- | --- | --- |
 | Foci Response | Date of foci response | uvMKOn1oWvd | DATE |
  | YES |
-| Foci Response | - Households included | k0rev4WSffi | INTEGER\_POSITIVE |
+| Foci Response | - Households included | k0rev4WSffi | INTEGER_POSITIVE |
  | NO |
-| Foci Response | - People included | DX4LVYeP7bw | INTEGER\_POSITIVE |
+| Foci Response | - People included | DX4LVYeP7bw | INTEGER_POSITIVE |
  | NO |
 
 | **Section** | **TEA / DE / eventDate** | **UID** | **valueType** | **optionSet** | **mandatory** |
