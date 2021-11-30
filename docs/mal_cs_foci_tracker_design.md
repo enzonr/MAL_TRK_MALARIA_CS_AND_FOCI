@@ -1,198 +1,229 @@
-# Malaria Elimination Case Surveillance &amp; Foci Investigation System Design
-
-## Introduction
-
-Transforming the surveillance system into a core intervention is the third pillar of the [_Global technical strategy for malaria 2016–2030_](https://www.who.int/publications-detail-redirect/9789240031357)_._ As countries progress towards malaria elimination, the aim of surveillance is to detect all malaria cases; investigate every confirmed malaria case; identify the likely location of an infection in order to direct actions to interrupt transmission and to ensure that each detected case is promptly treated and monitored to prevent secondary infection. An ideal surveillance information system for malaria elimination includes rapid and complete case reporting, central data storage and management, automated data analysis, and customized outputs and feedback that lead to timely and targeted responses. The DHIS2 tracker package for malaria case surveillance and foci investigation is an aid for malaria surveillance in burden reduction and elimination settings.
-
-The data elements included follow WHO-recommendations based on WHO global standards and normative guidance as stipulated in the organisations guidelines and guiding documents; in particular, the [Malaria Surveillance, Monitoring and Evaluation Manual]([https://apps.who.int/iris/bitstream/handle/10665/272284/9789241565578-eng.pdf](https://apps.who.int/iris/bitstream/handle/10665/272284/9789241565578-eng.pdf)). The data gathered is rendered into actionable indicators and dashboards in line with the work of the WHO surveillance assessment toolkit. The tracker packages supporting case notification, case investigation, foci investigation and classification workflows are designed to be used in conjunction with the aggregate DHIS2 packages for malaria programme monitoring in elimination and burden reduction settings to strengthen data quality, analysis and data driven decision making.
-
-## System design overview
-
-The metadata package contains two tracker programs that support the notification, investigation and classification of malaria cases and malaria foci as part of national malaria surveillance strategies. hese tracker programs are intended to be packaged and deployed together to serve complementary, related workflows for case notification and case and foci investigation systems.  The figure below illustrates elimination surveillance with the examples of case notification within 1 day, case investigation within 3 days and focus investigation within 7 days, a “1–3–7” approach adopted from the guidance in China.
+# Malaria Elimination Case Surveillance & Foci Investigation System Design
 
 
 
+1. Introduction
 
-**MAL CS - Malaria Case Notification, Investigation &amp; Response:** This is a longitudinal case-based surveillance program that supports a typical workflow for notifying confirmed malaria cases and following them up through case investigation  and case classification and focus investigation. 
+Transforming the surveillance system into a core intervention is the third pillar of the [Global technical strategy for malaria 2016–2030](https://www.who.int/publications-detail-redirect/9789240031357). As countries progress towards malaria elimination, the aim of surveillance is to detect all malaria cases; investigate every confirmed malaria case; identify the likely location of an infection in order to direct actions to interrupt transmission and to ensure that each detected case is promptly treated and monitored to prevent secondary infection. An ideal surveillance information system for malaria elimination includes rapid and complete case reporting, central data storage and management, automated data analysis, and customized outputs and feedback that lead to timely and targeted responses. The DHIS2 tracker package for malaria case surveillance and foci investigation is an aid for malaria surveillance in burden reduction and elimination settings. 
 
-
-It allows for cases to be linked through relationships- case to cases (detected reactively) and; a case to a foci registered in the related tracker program &quot;Foci Investigation&quot;. The &quot;Foci Investigation&quot; programme provides details on the actions taken around the index case that triggered a case investigation and the appropriate response measures that were carried out within the focus.
-
-**MAL Malaria Foci Investigation Program (MAL-FOCI)** is a registry of all foci and their classification status, as well as response interventions taken to manage them and potential for reclassification should the need arise._
+The data elements included follow WHO-recommendations based on WHO global standards and normative guidance as stipulated in the organisations guidelines and guiding documents; in particular, the [Malaria Surveillance, Monitoring and Evaluation: A reference manual ](https://www.who.int/publications-detail-redirect/9789241565578). The data gathered is rendered into actionable indicators and dashboards in line with the work of the WHO surveillance assessment toolkit. The tracker packages supporting case notification, case investigation, foci investigation and classification workflows are designed to be used in conjunction with the aggregate DHIS2 packages for malaria programme monitoring in elimination and burden reduction settings to strengthen data quality, analysis and data-driven decision making.
 
 
- There are also seven dashboards which are populated with indicators from the respective programs. The programmes are made to work in tandem and fulfill different aspects of the malaria elimination and burden reduction process._
+
+2. System design overview
+
+The metadata package contains two tracker programs that support case notification, case investigation, foci investigation, and classification workflows as described WHO’s [Malaria Surveillance, Monitoring and Evaluation: A reference manual Manua](https://www.who.int/publications-detail-redirect/9789241565578). 
+
+These tracker programs are intended to be deployed together to support typical workflows for:
+
+
+
+1. Malaria case notification, investigation and classification; 
+2. Foci investigation and classification 
+3. Linking case data with foci
+
+In elimination settings, case investigation, detection and focus investigation are elimination
+
+surveillance activities that are interconnected and are important for reliable
+
+determination of source of infection and classification of cases and foci to inform appropriate response
+
+While national standard operating procedures may vary, the figure below illustrates typical elimination surveillance workflows with the examples of case notification within 1 day, case investigation within 3 days and focus investigation within 7 days, based on China’s  “1–3–7” approach. In the DHIS2 package design, the **Malaria Case Notification, Investigation & Response program **supports the case notification and investigation in the left two panels of the diagram; while the Malaria Foci Investigation program supports the focus investigation shown on the right panel. 
+
+**FIG 1: Case notification and case and focus investigation systems according to the “1-3-7” approach supported by DHIS2 package design**
+
+![Surveillance workflow](images/surveillance_workflow.png)
+
+
+_Source: [Malaria Surveillance, Monitoring and Evaluation: A reference manual Manua](https://www.who.int/publications-detail-redirect/9789241565578)_
+
+**MAL CS - Malaria Case Notification, Investigation & Response program**
+
+This is a longitudinal case-based surveillance program that supports a typical workflow for notifying confirmed malaria cases and following them up through case investigation  and focus investigation to determine the source of infection and classification of cases and foci in order to guide effective responses.
+
+It allows for cases to be linked through relationships- case to cases (detected reactively) and; a case to a foci registered in the related tracker program “Foci Investigation”. The “Foci Investigation” programme provides details on the actions taken around the index case that triggered a case investigation and the appropriate response measures that were carried out within the focus.  
+ 
+**MAL-FOCI- Malaria Foci Investigation program**
+
+Is a registry of all foci and their classification status, as well as effective response interventions undertaken within a foci to manage them and potential for reclassification, should the need arise.
+
+**Dashboards** 
+
+In addition there are also seven dashboards associated with these programmes that are populated with indicators from the respective programs. The programmes are made to work in tandem and fulfil different aspects of the  burden reduction process and malaria elimination. 
+
 
 ## Program structure
 
-### 2.2.1 Program summary
+###2.2.1 Program summary 
+ 
+####MAL-CS: Malaria Case Notification, Investigation & Response
 
- MAL-CS:
 
 | Stage | Description |
 |---|---|
-| Enrollment | This section identifies information about the case and its surroundings. When a patient is enrolled in the case- based programme, they are also enrolled into their current organisation unit and assigned a unique ID. This enrollment also serves as a case notification which is necessary to trigger an investigation. |
-| Diagnosis and treatment stage | This stage records information about the diagnosis of the patient, how they were detected, if they had any previous malaria diagnosis and travel history of the patient which is necessary for a case to be preliminarily classified. This stage would ideally happen at the health facility level and  completed typically within 24 hours (1 day) of detection. |
-| Case investigation and classification | In this stage, the index case will further be investigated at the household level.This involves the screening for malaria of all household members, capturing of the household coordinated and recording of  any vector control interventions undertaken. All newly diagnosed  malaria cases detected  while screening members of the household will be recorded and a separate case notification form will be filled out. This stage is to be completed typically within 3 days of detection. |
-| Neighbouring household investigation | This stage allows the investigators to investigate neighbouring households which are located within a predetermined radius around the index case. This stage involves the screening for malaria of all household members,  capturing the neighbouring households' coordinates and recording  of any vector control interventions that were carried out. Once again, all newly diagnosed malaria cases detected while screening household members will be recorded and  a separate case notification form will be filled out. This is a repeatable stage and for each household visited a new neighbouring  household investigation will be filled out. This stage is to be completed ideally within 3 days of index case detection. |
+| Enrollment | This section allows for the recording of  information about the case and its associated organisation unit.. When a patient is enrolled in the case-based programme, they are also enrolled into their reporting health facility organisation unitand assigned a unique ID and collects general questions about the patient such as full name,age , Sex, occupation and contact details. This enrollment also serves as a case notification which is necessary to trigger an investigation. |
+| Diagnosis and treatment stage | This stage records all information associated with the diagnosis of the patient, case detection setting,  history of  malaria  and travel history of the patient which is necessary for a case to be preliminarily classified. This stage is conducted at the health facility level and is  typically completed within 24 hours (1 day) of detection. |
+| Case investigation and classification | This stage involves  the recording of information on, household members screened and those testing positive s capturing of the household coordinated and recording of any vector control interventions undertaken. This stage is conducted at the index case household and is typically completed within 3 days of detection by the investigation team. |
+| Neighbouring household investigation | This stage allows the investigators to investigate neighbouring households which are located within a predetermined radius around the index case. This stage involves the screening for malaria of all household members,  capturing the neighbouring households' coordinates and recording  of any vector control interventions that were carried out... This is a repeatable stage and is conducted at each neighbouring household visited and is typically completed  within 3 days of index case detection by the investigation team.  |
 | Case outcome | In this stage once all investigations are concluded, registration of  the final case classification as well as the outcome of the patient is recorded. This stage is to be completed ideally within 3 days of detection. |
-| Routine focus investigation | This stage allows for a regular investigation around the predetermined area where the index case is located. The routine focus investigation is conducted. Ideally within 7 days of every passively detected case. |
+| Routine focus investigation | This stage gathers information  on the type of population in the focus and response vector control interventions carried out . The routine focus investigation is conducted typically within 7 days of every passively detected case. |
 
-MAL-FOCI
 
-| Stage | Description |
-| --- | --- |
-| Enrollment | This stage gathers basic information about the foci ranging from the date of its registration to the foci name and is assigned with a unique ID, creating a foci profile. |
-| Focus status, investigation and classification | This is a repeatable stage where the status of the focus is recorded and the focus is classified. It further records more detailed information about the focus as well as entomological activities and findings.. |
-| Foci Response | This stage records vector control interventions carried out in this focus. |
+####MAL-FOCI: Malaria Foci Investigation
 
-### 2.2.2. Workflow
+ | Stage | Description |
+|---|---|
+| Enrollment | This stage gathers basic information about the foci ranging from the date of its registration to the foci  name and is assigned with a unique ID, creating a foci profile. |
+| Focus status, investigation and classification | This is a repeatable stage which captures the status of the focus, vector behaviour, insecticide resistance status and final classification where the status of the focus is recorded and the focus is classified.  |
+| Foci Response | This stage is a repeatable stage that records responses and vector control interventions carried out in this focus. |
 
-![Shape1](RackMultipart20211119-4-1qe0v2k_html_ab632a35e807e97.gif)
+###2.2.2. Workflow
 
-The program assumes that all people registered have tested positive for malaria and is divided in five non-repeatable stages which follow the case through the lifetime of their enrollment.
+
+
+![Package workflow](images/package_workflow.png)
+
+The program assumes that all people registered have  tested positive for malaria and is divided in five non-repeatable stages which follow the case through the lifetime of their enrollment.
+
 
 ## 2.3.Intended users
 
-_The programme is intended to be used at point of care facilities for data entry purposes, and the indicators populate dashboards that are thought to be used at national, district, facility levels. Currently, data-entry users have access to all the stages, but depending on in-country workflows they could be divided by program stage, for example, granting only the investigation team access to the investigation stage._
+The programme is intended to be used at point of care facilities and field level for data entry purposes, and the indicators populate dashboards that are thought to be used at national, district, facility  levels. Currently, data-entry users have access to all  the stages, but depending on in-country workflows they could be divided by program stage, for example, granting only the investigation team access to the investigation stage. 
 
-2.4 User Groups
+## 2.4 User Groups 
 
- User groups have been divided based on the program that they will be assigned to use and the function that the user is intended to perform. A user can belong to more than one user group if their functions overlap. In addition, further compartmentalisation can be made through assigning specific user groups for the different stages. Users will also need to be assigned an organisation unit.
+User groups have been divided  based on the program that they will be assigned to use  and the function that the user is intended to perform. A user can belong to more than one user group if their functions overlap. In addition, further compartmentalisation can be made through assigning specific user groups for the different stages. Users will also need to be assigned an organisation unit.
 
-_MAL-CS_
+**MAL-CS: Malaria Case Notification, Investigation & Response**
 
- **MAL-CS- Data Analysis**: Has access to all dashboards but cannot modify metadata or enter new data
+**MAL-CS- Data Analysis:** Has access to all dashboards but cannot modify metadata or enter new data
 
- **MAL-CS- Data Entry**: Can enter data and create new patient records
+**MAL-CS- Data Entry:** Can enter data and create new patient records
 
- **MAL-CS- Metadata Admin**: Can modify the metadata
+**MAL-CS- Metadata Admin:** Can modify the metadata
 
-_The implementing country should ensure that users have data entry and search rights for their respective Organisation units._
+The  implementing country should ensure that users have data entry and search rights for their respective Organisation units. 
 
-_MAL-FOCI_
+**MAL-FOCI: Foci Investigation & Response**
 
-**MAL-FOCI- Data Analysis**: Has access to all dashboards but cannot modify metadata or enter new data
+**MAL-FOCI- Data Analysis:** Has access to all dashboards but cannot modify metadata or enter new data
 
-**MAL-FOCI- Data Entry**: Can enter data and create new patient records_
+**MAL-FOCI- Data Entry:** Can enter data and create new patient records
 
-**MAL-FOCI- Metadata Admin**: Can modify the metadata
+**MAL-FOCI- Metadata Admin:** Can modify the metadata
 
-## 3. Tracker Configuration
+
+# 3. Tracker Configuration
+
 
 ## 3.1 Program configuration
 
-### 3.1.1 MAL-CS Program configuration
 
-The &quot;Malaria case notification, investigation and response&quot; program follows a confirmed malaria case throughout their treatment from when they are diagnosed with malaria. A patient can be enrolled as a case on the programme on more than one occasion. The case is represented by the tracked entity type "Malaria Case"
+### 3.1.1 MAL-CS: Malaria Case Notification, Investigation & Response - Program configuration
 
- The program displays the front page list in order to have an at a glance list of cases in the organisation unit, and it requires a minimum of two attributes to search for cases with 50 maximum of TEIs to return in search.
+The “Malaria case notification, investigation and response”  program follows a confirmed malaria case  from when they are diagnosed with malaria until a decision on focus response is made. A patient can be enrolled as a case on the programme on more than one occasion.  The case is represented by the tracked entity type “Malaria Case”.
 
- The program has been set as &quot;Audited&quot; meaning that users have access to enrollments in other org units, but that an audit trail of who has accessed which records is kept. For a more secure approach where access is more restricted, see here: [https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-236/new-tracker.html#webapi\_nti\_access\_level](https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-236/new-tracker.html#webapi_nti_access_level)
+The program displays the front page list in order to have an at a glance list of cases in the organisation unit, and it requires a minimum of two attributes to search for cases with 50 maximum of TEIs to return in search.
 
-### 3.1.2 MAL-FOCI Program configuration
+The program has been set as “Audited” meaning that users have access to enrollments in other org units, but that an audit trail of who has accessed which records is kept. For a more secure approach where access is more restricted, see [here]([https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-236/new-tracker.html#webapi_nti_access_level](https://docs.dhis2.org/en/develop/using-the-api/dhis-core-version-236/new-tracker.html#webapi_nti_access_level)).
 
-The Malaria Foci Investigation program registers all the foci which have been identified. A foci is defined by the WHO as &quot;a defined and circumscribed zone situated in an area that is or has been malarious and in which the necessary epidemiological and ecological factors are present for the transmission of malaria&quot;. The foci are represented by the tracked entity type "focus area"
 
- The program displays the front page list in order to have an at a glance list of foci in the org unit, and it requires a minimum of one attribute to search for foci with no maximum of TEIs to return in search.
+### 3.1.2 MAL-FOCI: Malaria Foci Investigation- Program configuration
 
- As foci are not people, they do not have sensitive personal information registered in their enrollment, they have been set with access level &quot;open&quot;. This should be evaluated by local data protection legislation.
+The  “Malaria Foci  Investigation” program registers all the foci which have been identified. A foci is defined by the WHO as “a defined and circumscribed zone situated in an area that is or has been malarious and in which the necessary epidemiological and ecological factors are present for the transmission of malaria”. In practice investigation and detection of cases in the focus are part of the broader focus investigation, while the latter may also include additional investigations to determine causes of transmission. The foci are represented by the tracked entity type “focus area”.
 
- It currently has no feature point to capture coordinates at enrollment level as these are captured in the investigation stage.
+The program displays the front page list in order to have an at a glance list of foci in the org unit, and it requires a minimum of one attribute to search for foci with no maximum of TEIs to return in search.
 
-## 3.2 prefixes
+Foci do not do not have sensitive personal information registered in their enrollment as they are geographical settings, they have been set with access level “open”. This should be evaluated by local data protection legislation.
 
-Throughout the metadata package, elements are prefixed with either "MAL" an object which os shared with other Malaria programmes, "MAL-CS" an object which is for the case surveillance program, &quot;MAL-FOCI&quot; for objects which are part of the Malaria Foci programme, and GEN, which are generic for our standard metadata packages.
+It currently has no feature point to capture coordinates at enrollment level as these are captured in the investigation stage.
 
-## 3.3 Unique Identifiers
+## 3.2 Prefixes
+
+Throughout the metadata package, elements are prefixed with either “MAL” an object which os shared with other Malaria programmes, “MAL-CS”; an object which is for the case surveillance program, “MAL-FOCI” for objects which are part of the Malaria Foci programme, and GEN, which are generic for our standard metadata packages.
+
+##3.3 Unique Identifiers
 
 The programs use different unique identifiers to aid with deduplication and with locating a case/foci. These include automatically generated IDs and should be adapted to local needs.
 
- System Case ID - An identifier which is unique for the whole system with an automatically generated pattern in the format RANDOM(XXX######).
+System Case ID - An identifier which is unique for the whole system with an automatically generated pattern in the format RANDOM(XXX######).
 
- Malaria Local Case - ID An identifier which is unique for the whole system. It is currently not automatically generated to allow for it to be based on for example, a paper record.
+Malaria Local Case - ID An identifier which is unique for the whole system. It is currently not automatically generated to allow for it to be based on e.g., a paper record.
 
- Focus ID - An identifier which is unique for the whole system with an automatically generated pattern in the format RANDOM(XXX##)
+Focus ID - An identifier which is unique for the whole system with an automatically generated pattern in the format RANDOM(XXX##)
+For more information about the text patterns in DHIS2, see [here.](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/additional-information/dhis2-tutorials.html#working-with-textpattern) 
 
- For more information about the text patterns in DHIS2, see here [https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/additional-information/dhis2-tutorials.html#working-with-textpattern](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/additional-information/dhis2-tutorials.html#working-with-textpattern)
 
 ## 3.4Tracked Entity type
 
-MAL-CS:
+###MAL-CS:Malaria Case Notification, Investigation & Response
 
-The Case Surveillance program uses the tracked entity type &quot;Case&quot; instead of &quot;Person&quot; which is what is commonly used in our metadata packages. This means that each time someone becomes infected, they become a case. A case is only allowed to be enrolled once. If someone becomes re-infected with malaria, they will have to be registered as a new case, and there are fields (in the diagnosis and treatment stage) where information about their previous infection can be recorded.
+The Case Surveillance program uses the tracked entity type “Case” instead of “Person” which is what is commonly used in our metadata packages. This means that each time someone becomes infected, they become a case. A case is only allowed to be enrolled once. If someone becomes re-infected with malaria, they will have to be registered as a new case, and there are fields (in the diagnosis and treatment stage) where information about their previous infection can be recorded.
 
- This means that there could be several &quot;case&quot; tracked entities which represent the same individual, and have the same National ID number, and therefore, this attribute should not be unique for the instance. A new &quot;System case ID&quot; is generated for each case.
+This means that there could be several “case” tracked entities which represent the same individual, and have the same National ID number, and therefore, this attribute should not be unique for the instance. A new “System case ID” is generated for each case.
 
- Depending on implementation needs, an alternative would be to use the tracked entity type &quot;person&quot; and allow for multiple enrollments. In such case, it would require a new case ID for every time an infection is recorded, which results in a new enrollment, and therefore it should not be an attribute in the enrollment of the person and should rather be added as a data element in a program stage.
+Depending on implementation needs, an alternative would be to use the tracked entity type “person” and allow for multiple enrollments. In such case, it would require a new case ID for every time an infection is recorded, which results in a new enrollment, and therefore it should not be an attribute in the enrollment of the person and should rather be added as a data element in a program stage.
 
- MAL-FOCI:
+###MAL-FOCI: Foci Investigation & Response
 
- The Foci program uses the tracked entity type &quot;Focus Area&quot;, with the mandatory attributes &quot;Focus ID&quot; and &quot;Focus Name&quot;
+The Foci program uses the tracked entity type “Focus Area”, with the mandatory attributes “Focus ID” and “Focus Name”
+
 
 ## 3.4 Relationships
 
+ 
 The package includes two bidirectional relationship types, case to foci and case to case, using the [relationships widget](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-235/tracking-individual-level-data/tracker-capture.html#add_relationship_to_tracked_entity_instance).
 
- Case to foci allows the user to connect a case with an existing or new foci. Likewise, it allows for a foci to connect with a case. The foci are registered into the separate &quot;Foci Investigation&quot; programme. See installation guide for more information.
+Case to foci allows the user to connect a case with an existing or new foci. Likewise, it allows for a foci to connect with a case. The foci are registered into the separate “Foci Investigation” programme. See installation guide for more information. 
 
- Case to case connects two malaria cases to each other, and potentially, to other cases.
+Case to case connects two malaria cases to each other, and potentially, to other cases.
 
- ![](RackMultipart20211119-4-1qe0v2k_html_cdb09891e93f9273.png)
+![Relationships widgetalt_text](images/relationships.png)
 
-The information shown in the relationship widget can be changed by adding the attributes to the tracked entity type and marking the box &quot;show in list&quot;.
+The information shown in the relationship widget can be changed by adding the attributes to the tracked entity type and marking the box “show in list”.
 
-## 4.Stages in Detail
+# 4.Stages in Detail
 
-## 4.1 MAL-CS
+## 4.1 MAL-CS: Malaria Case Notification, Investigation & Response
 
-### 4.1.1 Enrollment
+### 4.1.1 Enrollment 
 
-In the enrollment stage, each case is registered and assigned a System case ID as well as a Malaria case ID. These can be configured to be automatically generated and unique, depending on the needs of the implementation.
+In the enrollment stage, each case is registered and assigned a System case ID as well as a Malaria case ID. These can be configured to be automatically generated and unique, depending on the needs of the implementation. 
 
 | Name | UID | Value type | Options/Logic (if applicable) | Mandatory? |
-| --- | --- | --- | --- | --- |
-| Enrollment date | qDkgAbB5Jlk | DATE |
- | YES |
+|:---:|:---:|:---:|:---:|:---:|
+| Enrollment date | qDkgAbB5Jlk | DATE |  | YES |
 | System Case ID | HAZ7VQ730yn | TEXT | Automatically assigned | NO |
-| Malaria Local Case ID | NXazwhBRpfA | TEXT |
- | NO |
-| First Name | sB1IHYu2xQT | TEXT |
- | NO |
-| Surname | ENRjVGxVL6l | TEXT |
- | NO |
-| Date of birth | NI0QRzJvQ0k | DATE |
- | NO |
-| Date of birth is estimated | Z1rLc1rVHK8 | TRUE\_ONLY |
- | NO |
-| Age (years) | B6TnnFMgmCk | INTEGER\_ZERO\_OR\_POSITIVE | Calculated by program rule | NO |
-| Sex | oindugucx72 | TEXT | FEMALEMALE | NO |
-| Pregnancy Status | sPDKWSQ2vKQ | TEXT |
- Only visible if Female of reproductive age /
- YESNO | NO |
+| Malaria Local Case ID | NXazwhBRpfA | TEXT |  | NO |
+| First Name | sB1IHYu2xQT | TEXT |  | NO |
+| Surname | ENRjVGxVL6l | TEXT |  | NO |
+| Date of birth | NI0QRzJvQ0k | DATE |  | NO |
+| Date of birth is estimated | Z1rLc1rVHK8 | TRUE_ONLY |  | NO |
+| Age (years) | B6TnnFMgmCk | INTEGER_ZERO_OR_POSITIVE | Calculated by program rule | NO |
+|  Sex | oindugucx72 | TEXT | FEMALE MALE | NO |
+| Pregnancy Status | sPDKWSQ2vKQ | TEXT | Only visible if Female of reproductive age /YES NO | NO |
 | Malaria - Occupation | ZZmkcCkzzWr | TEXT | NURSE STUDENT TEACHER TRUCKDRIVER MINEWORKER SEASONALWORKER MIGRANTWORKER FARMER | NO |
-| Present Home Address | CpDhdm55uhl | TEXT |
- | NO |
-| Address (permanent) | XN0145qZ7kH | TEXT |
- | NO |
+| Present Home Address | CpDhdm55uhl | TEXT |  | NO |
+| Address (permanent) | XN0145qZ7kH | TEXT |  | NO |
 | Nationality | spkM2E9dn2J | TEXT | Complete country list ISO codes | NO |
-| Mobile phone number | fctSQp5nAYl | PHONE\_NUMBER |
- | NO |
-| Head of Household (First Name) | YCKldfKePsC | TEXT |
- | NO |
-| Head of Household (Last Name) | uLvB95ZxIUL | TEXT |
- | NO |
+| Mobile phone number | fctSQp5nAYl | PHONE_NUMBER |  | NO |
+| Head of Household (First Name) | YCKldfKePsC | TEXT |  | NO |
+| Head of Household (Last Name) | uLvB95ZxIUL | TEXT |  | NO |
+
+
 
 ### 4.1.2 Diagnosis and treatment stage
 
-_This stage is divided into three sections. It is mandatory to enter a date of diagnosis and a case detection setting. Both this elements are heavily used for indicator calculations_
+This stage is divided into three sections. It is mandatory to enter a date of diagnosis and a case detection setting. Both these elements are heavily used for indicator calculations.
 
 | Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
 |---|---|---|---|---|---|
 | N/A | Date of diagnosis | hYyB7FUS5eR | DATE |  | YES |
 | Case Detection | Detection setting | fazCI2ygYkq | TEXT | PASSIVE REACTIVE PROACTIVE | YES |
 
-_In the Malaria diagnosis section, all data relevant to the diagnosis process are recorded. There are programme rules included to facilitate data entry and hiding options when not relevant._
+
+
+In the malaria diagnosis section, all data relevant to the diagnosis process are recorded. There are programme rules included to facilitate data entry and hiding options when not relevant. 
 
 | Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
 |---|---|---|---|---|---|
@@ -214,40 +245,8 @@ _In the Malaria diagnosis section, all data relevant to the diagnosis process ar
 | Malaria diagnosis | Admission Status | MKMyvXshCdB | TEXT | ADMITTED REFERRED OPD | NO |
 | Malaria diagnosis | Reason for referral | Zlro25GTcNK | TEXT | Only visible if case admission status is “Referred”FURTHER_MANAGEMENT OUTOFSTOCK | NO |
 
-_The malaria History section deals with data related to previous Malaria infections, including the previous treatment and species identified._
+The travel details section refers to recent travel history of  the case, both within and outside the country in order to determine preliminary classification pending investigation. Basic decision support programme rules are also included.
 
-| Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
-|---|---|---|---|---|---|
-| History of Malaria | Blood transfusion within past 3 months | yO0ZIegEsDk | BOOLEAN |  | NO |
-| History of Malaria | history | cpXwLgQTLeO | BOOLEAN |  | NO |
-| History of Malaria | Date of previous diagnosis | Urz28endlF6 | DATE | Only available if there is a history of confirmed malaria | NO |
-| History of Malaria | plasmodium species (previous) | xTeHON9Jisk | TEXT | Only available if there is a history of confirmed malariaPF PK PM PO PV MIX OTHER | NO |
-| History of Malaria | Malaria Medication (previous) | JndDE3YbCEB | TEXT | Only available if there is a history of confirmed malariaAL ALPLUSPQ AS-SP ASPLUSAQ ASPLUSMQ ASPLUSMQPLUSPQ ASPLUSSP ASPLUSSPPLUSPQ CHLOROQUINE DHA-PPQ DHA-PPQPLUSPQ RADICAL_CURE OTHER | NO |
-
-The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule with the expression &quot;true&quot; meaning it&#39;s always hidden. Both data elements are automatically populated. The Notification date comes from the current date when the report is being filled. And the diagnosis date comes from the &quot;date of diagnosis&quot; feature in the event. The latter one is there to allow for that value to be used in indicators in other stages.
-
-| Section | Name | UID | Value type | Options (if any) | Mandatory? |
-|---|---|---|---|---|---|
-| Hidden section for indicator purposes (Diagnosis) | Notification date | fPbtS7glDT2 | DATE |  | NO |
-| Hidden section for indicator purposes (Diagnosis) | Diagnosis date | ObiXORrILyV | DATE |  | NO |
-
-### 4.1.3 Case investigation and classification
-
-_This is where the magic happens. The case notification, investigation and response is the stage that is recorded as close as possible to the cases. If it is not done at a facility or telephonically, the investigation will most likely be conducted in a mobile device. It includes a feature point where investigators can record the coordinates of the case. These coordinates are then used to populate the geographical dashboards._
-
- The first section deals with the location of the case_
-
-| Section | Name | UID | Value type | Options (if any) | Mandatory? |
-| --- | --- | --- | --- | --- | --- |
-| Feature | Event point |
- | Coordinates |
- | NO |
-| Feature | Date of case investigation | wYTF0YCHMWr | DATE |
- | YES |
-| Case household investigation | Location where case investigation is conducted | xS8sL2MMpc0 | TEXT | HEALTHFACILITYHOUSEHOLDTELEPHONIC | NO |
-| Case household investigation | Village name | Th6dW4kwZji | TEXT | Only available if investigation was held in a household | NO |
-
-The travel details section refers to recent travel by the case, both within and outside the country. Basic decision support programme rules are included.
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
 |---|---|---|---|---|---|
@@ -268,7 +267,46 @@ The travel details section refers to recent travel by the case, both within and 
 | Travel Details | Preliminary case classification | bcGuRgKDZei | TEXT | LOCAL IMPORTED INTRODUCED RECRUDESCENT INDUCED | NO |
 | Travel Details | Classification Narrative | pIcW9I0z5LL | TEXT |  | NO |
 
-The index case household investigation implies the investigation of the physical location and inhabitants of the case&#39;s dwelling. Basic validation rules are triggered if numbers are not correct (for example, more household members own a net than there are household members)
+
+
+The  history of malaria section deals with data related to previous Malaria infections, including the previous treatment and species identified.
+
+
+| Section | Name | UID | Value type | Logic/ Options (if any) | Mandatory? |
+|---|---|---|---|---|---|
+| History of Malaria | Blood transfusion within past 3 months | yO0ZIegEsDk | BOOLEAN |  | NO |
+| History of Malaria | history | cpXwLgQTLeO | BOOLEAN |  | NO |
+| History of Malaria | Date of previous diagnosis | Urz28endlF6 | DATE | Only available if there is a history of confirmed malaria | NO |
+| History of Malaria | plasmodium species (previous) | xTeHON9Jisk | TEXT | Only available if there is a history of confirmed malariaPF PK PM PO PV MIX OTHER | NO |
+| History of Malaria | Malaria Medication (previous) | JndDE3YbCEB | TEXT | Only available if there is a history of confirmed malariaAL ALPLUSPQ AS-SP ASPLUSAQ ASPLUSMQ ASPLUSMQPLUSPQ ASPLUSSP ASPLUSSPPLUSPQ CHLOROQUINE DHA-PPQ DHA-PPQPLUSPQ RADICAL_CURE OTHER | NO |
+
+The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule with the expression “true” meaning it's always hidden. Both data elements are automatically populated. The notification date comes from the current date when the report is being filled and the diagnosis date comes from the “date of diagnosis” feature in the event. The latter one is there to allow for that value to be used in indicators in other stages.
+
+| Section | Name | UID | Value type | Options (if any) | Mandatory? |
+|---|---|---|---|---|---|
+| Hidden section for indicator purposes (Diagnosis) | Notification date | fPbtS7glDT2 | DATE |  | NO |
+| Hidden section for indicator purposes (Diagnosis) | Diagnosis date | ObiXORrILyV | DATE |  | NO |
+
+
+
+### 4.1.3 Case investigation and classification
+
+This is where the magic happens. The case notification, investigation and response is the stage that is recorded as close as possible to the cases. The investigation is conducted at household using a mobile device. It includes a feature point where investigators can record the coordinates of the cases at household level. These coordinates are then used to populate the geographical dashboards. 
+ 
+The first section deals with the location of the case
+
+| Section | Name | UID | Value type | Options (if any) | Mandatory? |
+|---|---|---|---|---|---|
+| Feature | Event point |  | Coordinates |  | NO |
+| Feature | Date of case investigation | wYTF0YCHMWr | DATE |  | YES |
+| Case household investigation | Location where case investigation is conducted | xS8sL2MMpc0 | TEXT | HEALTHFACILITY HOUSEHOLD TELEPHONIC | NO |
+| Case household investigation | Village name | Th6dW4kwZji | TEXT | Only available if investigation was held in a household | NO |
+
+
+
+
+
+The index case household investigation is the investigation of the physical location and screening of  household members where the  cases reside. Basic validation rules are triggered if numbers are not correct (for example, more household members own a net than there are household members)
 
 | Index case household investigation and response | Name of head of household | SlqoeFUJvUV | TEXT |  | NO |
 |---|---|---|---|---|---|
@@ -283,16 +321,19 @@ The index case household investigation implies the investigation of the physical
 | Index case household investigation and response | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | YES_ONLY |  | NO |
 | Index case household investigation and response | Vector Control Intervention - Larval Source Management | wwIvEJUmxx8 | YES_ONLY |  | NO |
 
-_The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule and both data elements are automatically populated. The two different data elements are automatically filled with data from the diagnosis stage using programme rules._
+
+The final section is not visible in the data entry screen, but it is of utmost importance for indicator calculations. It is always hidden through a program rule and both data elements are automatically populated. The two different data elements are automatically filled with data from the diagnosis stage using programme rules.
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
 |---|---|---|---|---|---|
 | Hidden section for indicator purposes (Investigation) | Detection setting | fazCI2ygYkq | TEXT | PASSIVE REACTIVE PROACTIVE | NO |
 | Hidden section for indicator purposes (Investigation) | Diagnosis date | ObiXORrILyV | DATE |  | NO |
 
+
+
 ### 4.1.4 Neighbouring household investigation
 
-_This stage records the data for the investigations done in the households in the vicinity of the case. Basic validation rules are triggered if numbers are not correct (for example, more household members own a net than there are household members)_
+This stage records the data for the investigations done at the households in a predetermined radius of the case. Basic validation rules are triggered if numbers are not correct (for example, more household members own a net than there are household members).
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
 |---|---|---|---|---|---|
@@ -308,32 +349,39 @@ _This stage records the data for the investigations done in the households in th
 | Nearby household investigation | Malaria Vector Control Intervention - LLIN Distribution | CSYSRYrevdf | yes_ONLY |  | NO |
 | Nearby household investigation | Malaria Vector Control Intervention - Indoor Residual Spraying | oYbOVrpDnRo | yes_ONLY |  | NO |
 
+
+
+
 ### 4.1.5 Case outcome
 
-_The case outcome records the end of the final case classification and the outcome of the illness with the following data elements:_
+The case outcome records  the final case classification after the case has been investigated as well as  the outcome of the illness with the following data elements:
 
 | Case outcome | Report date | eHvTba5ijAh | DATE |  | TRUE |
 |---|---|---|---|---|:---:|
 | Case outcome | Malaria Final case classification | y3CG06h1Clh | TEXT | INDIGENOUS IMPORTED INTRODUCED RECRUDESCENT INDUCED | FALSE |
 | Case outcome | Outcome of illness | zXNfOKXRBA9 | TEXT | CURED DIED ABSCONDED | TRUE |
 
-It also includes a hidden section with the data element &quot;Admission status&quot;, which is assigned automatically from the same data element present in the &quot;Diagnostic and Treatment&quot; Stage.
+
+It also includes a hidden section with the data element “Admission status”, which is assigned automatically from the same data element present in the “Diagnostic and Treatment” Stage.
 
 | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | Hidden Section for indicator purposes (Outcome) | Admission Status | MKMyvXshCdB | TEXT | ADMITTED REFERRED OPD | NO |
 
+
 ### 4.1.6 Routine focus investigation and response
 
-This stage is completed following every case outcome. it has five sections and is non repeatable.
-In the locality section the user selects if the locality was urban or rural.
+This stage is completed following every case outcome. It has five sections and is non repeatable.
+
+In the locality  section the user selects if the locality was urban or rural.
 
 | Section | Name | UID | Value type | Options (if any) | Mandatory? |
 |---|---|---|---|---|---|
 | feature | Date of focus investigation | KwrBvn1EJT3 | DATE |  | YES |
 | Locality | Locality | r4GBctr3Xdh | TEXT | URBAN RURAL | NO |
 
-In the Types of population section, users select the type or types of population that exist in the case&#39;s foci. More than one can be selected
+In the Types of population section, users select the type or types of population that exist in the case’s foci. More than one can be selected
+
 
 | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -342,45 +390,42 @@ In the Types of population section, users select the type or types of population
 | Type(s) of populations | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |  | NO |
 | Type(s) of populations | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |  | NO |
 
-The response section gathers the date of response.
+The response section gathers the date of response. 
 
 | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | Response | Date of response | G7f2D1vl3fD | DATE |  | NO |
 
-And finally, the vector control intervention section records intervations undertaken in this focus. Next time there is ain investigation, these interventions will appear in that section.
 
-| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+
+
+## 4.2 MAL-FOCI: Foci Investigation & Response
+
+
+### 4.2.1 Enrollment 
+
+In the foci enrollment there are only four attributes in addition to the date of registration. It has a polygon attribute which has been configured from the Tracked Entity Type and which allows it to capture the perimeter of a focus. Note that this is not configured as a program feature, because there is no support for representing polygon features in the output maps.
+
+| Name | UID | valueType | optionSet | mandatory | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| Vector control interventions | MAL- Follow-up Vector Control Intervention - LLIN Distribution | JhpYDsTUfi2 | YES_ONLY |  | NO |
-| Vector control interventions | Bednet distributed | f623C5LloqV | INTEGER_ZERO_OR_POSITIVE |  | NO |
-| Vector control interventions | MAL- Follow-up Vector Control Intervention - Indoor Residual Spraying | yhX7ljWZV9q | YES_ONLY |  | NO |
-| Vector control interventions | Household sprayed | veWOag0p9n2 | INTEGER_ZERO_OR_POSITIVE |  | NO |
-| Vector control interventions | Environmental | UbeFiBkPcUo | YES_ONLY |  | NO |
-| Vector control interventions | Follow-up vector control details | zgnTlAH4ZOk | TEXT |  | NO |
-| Vector control interventions | Follow-up vector control details | zgnTlAH4ZOk | TEXT |  | NO |
+| Date of Foci Registration | M3xtLkYBlKI | DATE |  | YES | NO |
+|Polygon|TE type attribute | Polygonal coordinates |  | NO |  |
+| Malaria foci investigation Focus Name | Kv4fmHVAzwX | TEXT |  | NO |  |
+| Malaria foci investigation Locality | phxAY4PQdsT | TEXT | URBAN RURAL | NO |  |
+| Malaria foci investigation Focus ID | K9innmM1nuW | TEXT |  | NO |  |
+| Malaria foci investigation Focus Definition | cnXnFAStrrd | TEXT | VILLAGEFOCUS DISTRICTFOCUS REGIONFOCUS | NO |  |
 
-## 4.2 MAL-FOCI
 
-### 4.2.1 Enrollment
 
-In the foci enrollment there are only four attributes in addition to the date of registration.
-
-|| Name | UID | valueType | optionSet | mandatory |
-|:---:|:---:|:---:|:---:|:---:|
-| Date of Foci Registration | M3xtLkYBlKI | DATE |  | YES |
-| Malaria foci investigation Focus Name | Kv4fmHVAzwX | TEXT |  | NO |
-| Malaria foci investigation Locality | phxAY4PQdsT | TEXT | URBAN RURAL | NO |
-| Malaria foci investigation Focus ID | K9innmM1nuW | TEXT |  | NO |
-| Malaria foci investigation Focus Definition | cnXnFAStrrd | TEXT | VILLAGEFOCUS DISTRICTFOCUS REGIONFOCUS | NO |
 
 ### 4.2.2 Focus Status investigation and classification stage
 
 This is a repeatable stage where the details of the focus investigation are recorded. It has five sections and following the investigation the focus should be classified Subsequent stages will include previous classification and any interventions that might have been undertaken.
 
-The first section is hidden through programme rules if there have not been any interventions or investigations previously. If there have, then the section is displayed and most of these data elements are automatically completed based on the values from their other stages.
+The first section is hidden through programme rules if there have not been any interventions or investigations previously. If there have been interventions, then the section is displayed and most of these data elements are automatically completed based on the values from their other stages. 
+ 
+It has a point feature which allows you to record coordinates as a point on the map to mark the location of the focus. 
 
- It has a point feature which allows you to record coordinates as a point on the map to mark the location of the focus. The point could alternatively be configured as a "polygon", which would allow you to draw a shape on the map in order to delimit a perimeter for the focus.
 
 | Stage | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -392,23 +437,24 @@ The first section is hidden through programme rules if there have not been any i
 |  | Focus Status | - Previous Vector Control Intervention - INDOOR residual spraying | e6hRE1N1Fcc | YES_ONLY |  | NO |
 |  | Focus Status | - Previous Vector Control Intervention - Larval Source management | dbMsAGvictz | YES_ONLY |  | NO |
 
-The Foci investigation section is where the bulk of the work happens.
 
-| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory | mandatory |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Foci Investigation | - Total Population in the Focus | HDRons6AfbL | INTEGER_POSITIVE |  | NO |  |
-| Foci Investigation | - Malaria Households | VNM6zoPECqd | INTEGER_POSITIVE |  | NO | YES |
-| Foci Investigation | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |  | NO | NO |
-| Foci Investigation | MAL- Migrant | BK2d3ktuJWa | YES_ONLY |  | NO | NO |
-| Foci Investigation | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |  | NO | NO |
-| Foci Investigation | MAL- Refugee | HUzRTYRFcYn | YES_ONLY |  | NO | NO |
-| Foci Investigation | - Type of Population - Other | QZZA5IfHAAU | YES_ONLY |  | NO | NO |
-| Foci Investigation | - Type of Population - Specify Other | ehBd9cR5bq4 | TEXT | Only shown if other is selected | NO |  |
-| Foci Investigation | - Geographical features | SaHE38QFFwZ | TEXT | HILLY PLATUE HILLY_AND_PLATUE | NO |  |
-| Foci Investigation | - Development activity present | Tj642rK34Qf | YES_ONLY |  | NO |  |
-| Foci Investigation | - Development activity type | jzksn7lA2ac | TEXT | Only shown if yes is selected previously--AGRICULTURE CONSTRUCTION MINING PLANTATION OTHER | NO |  |
-| Foci Investigation | - Development activity other specify | gd8U1R3ALDA | TEXT | Only shown if other is selected | NO |  |
 
+The Foci investigation section is where the bulk of the work happens. 
+
+| Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Foci Investigation | - Total Population in the Focus | HDRons6AfbL | INTEGER_POSITIVE |  | NO |
+| Foci Investigation | - Malaria Households | VNM6zoPECqd | INTEGER_POSITIVE |  | NO |
+| Foci Investigation | MAL- Resident | Cd5AUkJT1mE | YES_ONLY |  | NO |
+| Foci Investigation | MAL- Migrant | BK2d3ktuJWa | YES_ONLY |  | NO |
+| Foci Investigation | MAL- Temporary worker | VJ7qLlRgm7e | YES_ONLY |  | NO |
+| Foci Investigation | MAL- Refugee | HUzRTYRFcYn | YES_ONLY |  | NO |
+| Foci Investigation | - Type of Population - Other | QZZA5IfHAAU | YES_ONLY |  | NO |
+| Foci Investigation | - Type of Population - Specify Other | ehBd9cR5bq4 | TEXT | Only shown if other is selected | NO |
+| Foci Investigation | - Geographical features | SaHE38QFFwZ | TEXT | HILLY PLATUE HILLY_AND_PLATUE | NO |
+| Foci Investigation | - Development activity present | Tj642rK34Qf | YES_ONLY |  | NO |
+| Foci Investigation | - Development activity type | jzksn7lA2ac | TEXT | Only shown if yes is selected previously--AGRICULTURE CONSTRUCTION MINING PLANTATION OTHER | NO |
+| Foci Investigation | - Development activity other specify | gd8U1R3ALDA | TEXT | Only shown if other is selected | NO |
 The vector behaviour section deals with the resting and biting behaviour of the mosquitoes in the area.
 
 | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
@@ -416,7 +462,8 @@ The vector behaviour section deals with the resting and biting behaviour of the 
 | Vector Behaviour | - Biting Behaviour | PxKiOhLn7mV | TEXT | INDOORBITING OUTDOORBITING | NO |
 | Vector Behaviour | - Resting Behaviour | X1DpyS5FN3T | TEXT | INDOOR OUTDOOR | NO |
 
-The Insecticide resistance section registers if there is insecticide resistance in the area and to which insecticide.
+
+The Insecticide resistance  section registers if there is insecticide resistance in the area and to which insecticide.
 
 | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -431,8 +478,7 @@ The classification section lets the health worker register the focus status and 
 | Classification | - Focus date of classification | bl7EMKxJIIT | DATE |  | YES |
 | Classification | - Additional Information Evidence | PILB3GtIwiJ | TEXT |  | NO |
 
-### 4.2.3 Foci Response stage
-
+### 4.2.3 Foci Response stage 
 | Section | TEA / DE / eventDate | UID | valueType | optionSet | mandatory |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | Foci Response | Date of foci response | uvMKOn1oWvd | DATE |  | YES |
@@ -445,9 +491,10 @@ The classification section lets the health worker register the focus status and 
 | Vector Control | MAL- Follow-up Vector Control Intervention - INDOOR Residual Spraying | yhX7ljWZV9q | YES_ONLY |  | NO |
 | Vector Control | - Follow-up Vector Control Intervention - Larval Source Management | c2c62aRFIfr | YES_ONLY |  | NO |
 
-## Validation rules / Program rules
+# 5.Validation rules / Program rules 
 
-## Validation rules for malaria Case Surveillance
+
+## 5.1Validation rules for malaria Case Surveillance
 
 | name | id | description | condition |
 |---|---|---|---|
@@ -519,45 +566,60 @@ The classification section lets the health worker register the focus status and 
 | Hide insecticide list if not proven resistant to insecticides | eEgli5CXC9g | If it | #{insecticide_resistance_proven} != true |
 | If zero houses visited, hide Vector control section | khygXEKXJSe |  | #{households_visited} == 0 |
 
-## Analytics
+# 6. Analytics
 
-### Dashboards
+## 6.1 Dashboards
 
-The package includes seven dashboards, 6 of them are based exclusively on indicators from MAL-CS, the remaining one has a combination of Indicators from MAL-CS and MAL-FOCI. A number has been added to their name to keep them in a logical order and they are prefixed with the respective programme.
+The package includes seven dashboards, 6 of them are based exclusively on indicators from MAL-CS, the remaining one has a combination of Indicators from MAL-CS and MAL-FOCI. A number  has been added to their name to keep them in a logical order and they are prefixed with the respective programme.
 
-#### _MAL-CS- 01 Trends_
+### MAL-CS- 01 Trends
 
- ![](RackMultipart20211119-4-1qe0v2k_html_fc87ac26d76d817.png)
+![Trends](images/dashboard1.png)
+ 
+### MAL-CS-02 Epidemiology
 
-#### MAL-CS-02 Epidemiology
+ ![Epidemiology](images/dashboard2.png)
 
-![](RackMultipart20211119-4-1qe0v2k_html_53409dd2aa06f5d3.png)
+### MAL-CS-03 Treatment and Diagnostic
 
-#### MAL-CS-03 Treatment and Diagnostic
 
-![](RackMultipart20211119-4-1qe0v2k_html_beb64b0993f1ad85.png)
+ ![Treatment and diagnostic](images/dashboard3.png)
 
-#### MAL-CS-04 Case Notification &amp; Investigation
 
-![](RackMultipart20211119-4-1qe0v2k_html_142b4bd8ff997bf7.png)
 
-#### MAL-CS-05- Case Classification
+### MAL-CS-04 Case Notification & Investigation
 
-![](RackMultipart20211119-4-1qe0v2k_html_a1687c77b462acc5.png)
 
-#### MAL-CS-06- Geolocation
+ ![Case Notification and Investigation](images/dashboar4.png)
 
-![](RackMultipart20211119-4-1qe0v2k_html_31e5e89a81c5b84d.png)
 
-####MAL-FOCI
 
-![](RackMultipart20211119-4-1qe0v2k_html_6bbb82852212866e.png)
+### MAL-CS-05- Case Classification
 
-### Indicators and Program Indicators
 
-The indicators on this package have been built based on specifications from guiding documents from the WHO. Due to limitations on calculating indicators based on data from multiple events, some programme rules have been used to move data into &quot;hidden sections&#39;&#39; throughout the program. When modifying the package, extra care should be taken that the data elements in these hidden sections are being populated correctly. This can be tested directly in Tracker by removing the program rules which hide the sections. The rules for this are all called &quot;_Hide Section for indicator purposes&quot;. In DHIS2, we differentiate between &quot;Program indicators&quot;, which are based on counting events or enrollments based on a filter, and &quot;Indicators&quot; which are constructed with a numerator and denominator. In most cases for this program, we are using program indicators to create the indicators.
+![Case Classification](images/dashboard5.png)
 
- 6.1 Program Indicators:
+### MAL-CS-06- Geolocation
+
+ ![Geolocation](images/dashboard6.png)
+
+
+#### Foci polygons
+
+The Foci Investigation and Response programme allows for polygons to be captured instead of points. Currently and due to limitations in the packaging process, these are not included as maps analytics objects in the programmes by default, but they can be easily added as a tracked entity layer 
+
+![Foci polygon layer](images/polygon.png)
+
+### MAL-FOCI
+
+ ![Foci](images/dashboard7.png)
+
+
+## Indicators and Program Indicators
+
+The indicators on this package have been built based on specifications from guiding documents from the WHO. Due to limitations on calculating indicators based on data from multiple events, some programme rules have been used to move data into “hidden sections'' throughout the program. When modifying the package, extra care should be taken that the data elements in these hidden sections are being populated correctly. This can be tested directly in Tracker by removing the program rules which hide the sections. The rules for this are all called “_Hide Section for indicator purposes”. In DHIS2, we differentiate between “Program indicators”, which are based on counting events or enrollments based on a filter, and “Indicators” which are constructed with a numerator and denominator. In most cases for this program, we are using program indicators to create the indicators. 
+
+### 6.1 Program Indicators:
 
 | pi_name | pi_shortname | pi_desc | pi_filter |
 |---|---|---|---|
@@ -689,13 +751,14 @@ The indicators on this package have been built based on specifications from guid
 | MAL-FOCI- Foci Registered | Foci Registered | Total number of foci in the registry | TRUE |
 | MAL-FOCI- Foci with response | Foci with response | Number of malaria foci that received any form of response | V{program_stage_id} =='uvMKOn1oWvd' |
 
-6.2 Indicators
+
+## 6.2 Indicators
 
 | Indicator name | Numerator description | Denominator description |
 |---|---|---|
 | MAL-CS- Case reports received < 24 h after detection % | Number of case notifications received within 24h of diagnosis | Total number of confirmed malaria case reports  |
-| MAL-CS- Cases diagnosed with Microscopy (%) | Malaria cases diagnosed by RDT | Total confirmed Malaria cases with a known species |
-| MAL-CS- Cases diagnosed with RDT (%) | Malaria cases diagnosed by RDT | Total confirmed Malaria cases with a known species |
+| MAL-CS- Cases diagnosed with Microscopy (%) | Malaria cases diagnosed by Microscopy | Total confirmed malaria cases  |
+| MAL-CS- Cases diagnosed with RDT (%) | Malaria cases diagnosed by RDT | Total confirmed Malaria cases  |
 | MAL-CS- Cases investigated (%) | Number of cases investigated | Number of positive cases detected through PCD  |
 | MAL-CS- Cases investigated on time (%) | sum of cases with enrollment date within 3 days from date of diagnosis | Total confirmed cases reported |
 | MAL-CS- Cases notified on time (%) | sum of cases enrollment date within 1 day from date of diagnosis | Total confirmed cases reported |
@@ -703,20 +766,20 @@ The indicators on this package have been built based on specifications from guid
 | MAL-CS- Confirmed cases classified (%) | Number of positive cases classified | Number of positive cases detected through PCD and investigated x100 |
 | MAL-CS- Confirmed cases investigated (%) | Number of positive cases detected through PCD and investigated | Number of positive cases detected through PCD  |
 | MAL-CS- Confirmed cases with symptoms diagnosed within 24 hours (%) | N: Number of confirmed  cases with symptoms tested with either microscopy or RDT within 24 hours of patient presentation to the health facility | Total number of confirmed malaria cases reported through PCD |
-| MAL-CS- Female cases (%) | Malaria female cases | Total confirmed Malaria cases with a known species |
+| MAL-CS- Female cases (%) | Malaria female cases | Total confirmed Malaria cases  |
 | MAL-CS- Foci investigated within N3 days of diagnosis (%) | Confirmed Malaria Cases | Foci investigated within N3 days of diagnosis |
 | MAL-CS- Foci with response within N7 days of diagnosis (%) | N7 | Confirmed Malaria Cases |
 | MAL-CS- Imported cases (%) | Number of Imported cases | Confirmed Malaria Cases |
 | MAL-CS- Indigenous cases (%) | Number of indigenous cases | Confirmed Malaria Cases |
 | MAL-CS- Introduced cases (%) | Number of Introduced cases | Confirmed Malaria Cases |
-| MAL-CS- Malaria Case Occupation: Farmer (%) | Farmer | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Migrant Worker (%) | Farmer | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Mine worker (%) | Malaria female cases | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Nurse (%) | Malaria Nurse | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Seasonal worker (%) | Seasonal worker | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Student (%) | Malaria Student | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Teacher (%) | Malaria Student | Total confirmed Malaria cases with a known species |
-| MAL-CS- Malaria Case Occupation: Truck Driver (%) | Malaria Student | Total confirmed Malaria cases with a known species |
+| MAL-CS- Malaria Case Occupation: Farmer (%) | Farmer | Total cases |
+| MAL-CS- Malaria Case Occupation: Migrant Worker (%) | Migrant worker | Total cases  |
+| MAL-CS- Malaria Case Occupation: Mine worker (%) | Mine workers | Total cases  |
+| MAL-CS- Malaria Case Occupation: Nurse (%) | Malaria Nurse | Total cases |
+| MAL-CS- Malaria Case Occupation: Seasonal worker (%) | Seasonal worker | Total cases |
+| MAL-CS- Malaria Case Occupation: Student (%) | Malaria Student | Total cases |
+| MAL-CS- Malaria Case Occupation: Teacher (%) | Malaria Teacher | Total cases |
+| MAL-CS- Malaria Case Occupation: Truck Driver (%) | Malaria Student | Total cases |
 | MAL-CS- Male cases (%) | Malaria male cases | Total confirmed Malaria cases  |
 | MAL-CS- Mixed infection cases (%) | Malaria cases due to P.vivax identified by RDT or microscopy | Total confirmed Malaria cases with a known species |
 | MAL-CS- P.falciparum cases (%) | Malaria cases due to P.Falciparum | Total confirmed Malaria cases with a known species |
@@ -734,9 +797,15 @@ The indicators on this package have been built based on specifications from guid
 | MAL-FOCI- Foci classified as residual non-active (%) | Number of foci classified as residual non-active | Total number of foci in the registry |
 | MAL-FOCI- Foci investigated (%) | Number of foci investigated | Total Number of foci recorded in this period |
 
-Note:
- Indicators that calculate a percentage of cases based on detection vs. outcome can show a result exceeding 100%, this results from cases in which the outcome happens in the following period.
+
+
+Note:  
+Indicators that calculate a percentage of cases based on detection vs. outcome can show a result exceeding 100%, this results from cases in which the outcome happens in the following period. In particular for confirmed cases classified, the percentage can be more than 100% since the confirmation comes from diagnosis and treatment and the classification from the outcome, in a report the outcome could be in a different period. 
+
+
 
 ## Android compatibility
 
-The program as it stands is fully compatible with Android. When implementing with Android, especially if the program is modified, it is important to be familiar with the Android implementation guide [https://docs.dhis2.org/en/full/implement/dhis2-android-implementation-guide.html](https://docs.dhis2.org/en/full/implement/dhis2-android-implementation-guide.html)
+The program as it stands is fully compatible with Android. When implementing with Android, especially if the program is modified, it is important to be familiar with the Android implementation guide [https://docs.dhis2.org/en/full/implement/dhis2-android-implementation-guide.html](https://docs.dhis2.org/en/full/implement/dhis2-android-implementation-guide.html) 
+
+
