@@ -156,7 +156,7 @@ For more information about the text patterns in DHIS2, see [here.](https://docs.
 
 ## 3.4Tracked Entity type
 
-###MAL-CS:Malaria Case Notification, Investigation & Response
+### MAL-CS:Malaria Case Notification, Investigation & Response
 
 The Case Surveillance program uses the tracked entity type “Case” instead of “Person” which is what is commonly used in our metadata packages. This means that each time someone becomes infected, they become a case. A case is only allowed to be enrolled once. If someone becomes re-infected with malaria, they will have to be registered as a new case, and there are fields (in the diagnosis and treatment stage) where information about their previous infection can be recorded.
 
@@ -164,7 +164,7 @@ This means that there could be several “case” tracked entities which represe
 
 Depending on implementation needs, an alternative would be to use the tracked entity type “person” and allow for multiple enrollments. In such case, it would require a new case ID for every time an infection is recorded, which results in a new enrollment, and therefore it should not be an attribute in the enrollment of the person and should rather be added as a data element in a program stage.
 
-###MAL-FOCI: Foci Investigation & Response
+### MAL-FOCI: Foci Investigation & Response
 
 The Foci program uses the tracked entity type “Focus Area”, with the mandatory attributes “Focus ID” and “Focus Name”
 
@@ -590,7 +590,7 @@ The package includes seven dashboards, 6 of them are based exclusively on indica
 ### MAL-CS-04 Case Notification & Investigation
 
 
- ![Case Notification and Investigation](images/dashboar4.png)
+ ![Case Notification and Investigation](images/dashboard4.png)
 
 
 
@@ -606,7 +606,7 @@ The package includes seven dashboards, 6 of them are based exclusively on indica
 
 #### Foci polygons
 
-The Foci Investigation and Response programme allows for polygons to be captured instead of points. Currently and due to limitations in the packaging process, these are not included as maps analytics objects in the programmes by default, but they can be easily added as a tracked entity layer 
+The Foci Investigation and Response programme allows for polygons to be captured instead of points. Currently these are not included as map objects in the programmes by default, but they can be added as a tracked entity layer.
 
 ![Foci polygon layer](images/polygon.png)
 
