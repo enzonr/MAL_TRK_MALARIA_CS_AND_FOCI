@@ -12,7 +12,7 @@ The data elements included follow WHO-recommendations based on WHO global standa
 
 2. System design overview
 
-The metadata package contains two tracker programs that support case notification, case investigation, foci investigation, and classification workflows as described WHO’s [Malaria Surveillance, Monitoring and Evaluation: A reference manual Manua](https://www.who.int/publications-detail-redirect/9789241565578). 
+The metadata package contains two tracker programs that support case notification, case investigation, foci investigation, and classification workflows as described WHO’s [Malaria Surveillance, Monitoring and Evaluation: A reference manual Manual](https://www.who.int/publications-detail-redirect/9789241565578). 
 
 These tracker programs are intended to be deployed together to support typical workflows for:
 
